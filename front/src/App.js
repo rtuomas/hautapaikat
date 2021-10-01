@@ -2,8 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  // Samuelin testikommentti
-  // Testaus ohjeita varten
+  // Testi 123
   return (
     <div className="App">
       <header className="App-header">
