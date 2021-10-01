@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   // Samuelin testikommentti
-  // Tämä on Samuelin branchi
+  // Testaus ohjeita varten
   return (
     <div className="App">
       <header className="App-header">
