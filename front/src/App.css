@@ -1,38 +1,138 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+/* Body */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", "sans-serif";
+    font-size: 16px;
+    background-color: #00171F;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Header and it's contents */
+
+header {
+    flex-wrap: wrap;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: space-around;
+    background-color: #003459;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header > h1 {
+    margin: auto 2em;
+    font-family: 'Righteous', cursive;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+header > h1 > a {
+    text-decoration: none;
+    color: #FFFFFF;
 }
 
-.App-link {
-  color: #61dafb;
+#nav {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#nav > li {
+    list-style: none;
+    margin: auto 2em;
 }
+a.datalink:link, a.datalink:visited {
+    background-color: #f44336;
+    color: white;
+    margin-top:  2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.datalink:hover, a.datalink:active {
+    background-color: #007EA7;
+}
+
+@media only screen and (min-width: 570px) {
+    #nav > li {
+        margin: 0 3em 0 0;
+    }
+}
+
+#nav > li > a {
+    text-decoration: none;
+    color: #ececeb;
+}
+
+#nav > li > a:hover {
+    color: #007EA7;
+}
+
+/* Sidebar */
+
+#sidebar {
+    display: flex;
+    margin: 1em auto;
+}
+
+/* Search bar CSS starts here */
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+}
+.form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+.form__field::placeholder {
+    color: transparent;
+}
+.form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #007EA7;
+}
+.form__field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-color:  #007EA7;
+}
+.form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #007EA7;
+    font-weight: 700;
+}
+/* reset input */
+.form__field:required, .form__field:invalid {
+    box-shadow: none;
+}
+
+/* Search bar CSS ends here */
