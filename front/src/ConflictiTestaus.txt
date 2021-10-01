@@ -1,1 +1,1 @@
-Testitiedosto conflictien testausta varten
+Testitiedosto conflictien testausta varten. Muutetaan jo poistettua tiedostoa
