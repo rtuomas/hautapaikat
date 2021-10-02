@@ -1,6 +1,4 @@
-import { FaBeer } from "@react-icons/all-files/fa/FaBeer";
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
-import { IconContext } from "react-icons";
 
 const searchField = () => {
     return (
