@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar'
 import Map from './components/Map'
 import './App.css';
 
+//Tuomas testi kommentti
 const App = () => {
   return (
   <div id="mainContainer">
