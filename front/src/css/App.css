@@ -20,6 +20,75 @@ body {
     border: 3px solid #007EA7;
 }
 
+/* Log in and register pages */
+
+#logInContainer {
+  margin-left: 35vw;
+  margin-right: 25vw;
+  margin-top: 5vw;
+  width: 40vw;
+  height: 25vw;
+  justify-content: center;
+}
+
+/* Log in and register buttons */
+
+.button {
+  display: inline-flex;
+  height: 40px;
+  width: 150px;
+  border: 2px solid #BFC0C0;
+  margin-top: 3em;
+  color: #BFC0C0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: .8em;
+  letter-spacing: 1.5px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#button-2 {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#button-2 p {
+  position: relative;
+  transition: all .35s ease-Out;
+}
+
+#button-2:hover #slide {
+  left: 0;
+}
+
+#button-2:hover p {
+  color: #2D3142;
+}
+
+#slide {
+  width: 100%;
+  height: 100%;
+  left: -200px;
+  background: #BFC0C0;
+  position: absolute;
+  transition: all .35s ease-Out;
+  bottom: 0;
+}
+
+/* About Container */
+
+#aboutContainer {
+  margin-left: 35vw;
+  margin-right: 25vw;
+  margin-top: 5vw;
+  width: 40vw;
+  height: 25vw;
+  justify-content: center;
+}
+
 /* Header and it's contents */
 
 header {
@@ -118,6 +187,7 @@ a.datalink:hover, a.datalink:active {
 }
 .form__label {
     position: absolute;
+    white-space: nowrap;
     top: 0;
     display: block;
     transition: 0.2s;

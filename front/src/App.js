@@ -1,19 +1,30 @@
 import React from 'react'
-import Header from './components/Header'
-import Sidebar from './components/Sidebar'
-import Map from './components/Map'
-import './App.css';
+import LogIn from './components/LogIn'
+import Register from './components/Register'
+import About from './components/About'
+import Home from './components/Home'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
-//Tuomas testi kommentti
 const App = () => {
   return (
-  <div id="mainContainer">
-    <Header/>
-    <Sidebar/>
-    <div id="mapContainer">
-      <Map/>
-    </div>
-  </div>
+  <>
+    <Router>
+        <Switch>
+          <Route path="/login">
+            <LogIn />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+          <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   )
 }
 
