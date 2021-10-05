@@ -15,3 +15,13 @@ Content-Type: application/json
     "long": 1234.123
   }
 }
+
+###
+
+POST http://localhost:3002/newUser
+Content-Type: application/json
+
+{
+  "username": "Testi",
+  "password": "Salainen"
+}

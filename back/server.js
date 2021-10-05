@@ -32,17 +32,20 @@ const deadSchema = new mongoose.Schema({
 })
 const Dead = mongoose.model('Dead', deadSchema)
 
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String
+})
+const User = mongoose.model('User', userSchema)
+
 
 
 
 app.get('/', (req, res) => {
 
   Dead.find().then( result => {
-
     console.log(result)
     res.json(result)
-
-
   })
   .catch(error => {
     console.log(error)
@@ -66,6 +69,21 @@ app.post('/addDead', (req, res) => {
   newPerson.save()
 
   res.json( {message: "Toimii ja tallennettu"} )
+
+});
+
+
+app.post('/newUser', (req, res) => {
+
+  //Varmistukset tänne ensin
+
+  const newUser = new User({
+    username: req.body.username,
+    password: req.body.password
+  });
+  newUser.save()
+
+  res.json( {message: "Tallennettu"} )
 
 });
 
