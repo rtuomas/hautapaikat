@@ -16,7 +16,7 @@ const searchField = () => {
     )
 }
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 
     let newGrave = {
         firstName: "",
@@ -99,9 +99,18 @@ const Sidebar = () => {
         }
     }
 
+    // Lisättävä demomarker. Tiedot tulevat siis myöhemmin klikkaamalla haluttua vainajaa.
+
+    let dynamicMarker = {
+        position: [63.5538179, 27.7496755],
+        info: "Merkintä sidebarilta nro. "
+    };
+
     return (
     <>
       <ul id="sidebar">
+        {/* Kutsutaan propseina saatua addMarkeria */}
+        <button onClick={() => props.addMarker(dynamicMarker)}>Lisää markkeri</button>
         { addGrave() }
         { searchField() }
     </ul>
