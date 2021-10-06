@@ -3,9 +3,9 @@ import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 const searchField = () => {
     return (
     <div>
-        <div class="form__group field">
-            <input type="input" class="form__field" placeholder="Hae" name="name" id='name' required />
-            <label for="name" class="form__label">Hae</label>
+        <div className="form__group field">
+            <input type="input" className="form__field" placeholder="Hae" name="name" id='name' required />
+            <label htmlFor="name" className="form__label">Hae</label>
         </div>
     </div>
     )

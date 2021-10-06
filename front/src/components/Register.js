@@ -36,10 +36,10 @@ const Register = () => {
             <Header />
             <div id="logInContainer">
                 <h1 style={{ color: "white" }}>Rekisteröidy</h1>
-                <div class="form__group field">
+                <div className="form__group field">
                     <input
                         type="input"
-                        class="form__field"
+                        className="form__field"
                         placeholder="Käyttäjätunnus"
                         name="username"
                         id='username'
@@ -47,12 +47,12 @@ const Register = () => {
                         value={username}
                         required
                     />
-                    <label for="name" class="form__label">Käyttäjätunnus</label>
+                    <label htmlFor="name" className="form__label">Käyttäjätunnus</label>
                 </div>
-                <div class="form__group field">
+                <div className="form__group field">
                     <input
                         type="password"
-                        class="form__field"
+                        className="form__field"
                         placeholder="Salasana"
                         name="password"
                         id='password'
@@ -60,31 +60,27 @@ const Register = () => {
                         value={password}
                         required
                     />
-                    <label for="name" class="form__label">Salasana</label>
+                    <label htmlFor="name" className="form__label">Salasana</label>
                 </div>
-                <div class="form__group field">
+                <div className="form__group field">
                     <input
                         type="password"
-                        class="form__field"
+                        className="form__field"
                         placeholder="Salasana"
                         name="password"
-                        id='password'
+                        id='password2'
                         onChange={(e) => setPassword2(e.target.value)}
                         value={password2}
                         required
                     />
-                    <label for="name" class="form__label">Syötä salasana uudelleen</label>
+                    <label htmlFor="name" className="form__label">Syötä salasana uudelleen</label>
                 </div>
 
-                {/*
-
-                <div  type="submit" class="button" id="button-2">
-                    <input type="submit" id="slide"></input>
-                    <p>Luo käyttäjä</p>
+                <div className="button" id="button-2" onClick={() => document.getElementById("registerButton").click()}>
+                    <div id="slide"></div>
+                    <p>Kirjaudu sisään</p>
                 </div>
-
-                */}
-                <input type="submit" value="Luo käyttäjä" />
+                <input type="submit" id="registerButton" style={{ display: "none" }} value="Luo käyttäjä" />
 
             </div>
         </form>

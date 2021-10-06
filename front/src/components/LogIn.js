@@ -31,10 +31,10 @@ const LogIn = () => {
             <Header />
             <div id="logInContainer">
                 <h1 style={{ color: "white" }}>Kirjaudu sisään</h1>
-                <div class="form__group field">
+                <div className="form__group field">
                     <input
                         type="input"
-                        class="form__field"
+                        className="form__field"
                         placeholder="Käyttäjätunnus"
                         name="username"
                         id='username'
@@ -42,12 +42,12 @@ const LogIn = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                    <label for="name" class="form__label">Käyttäjätunnus</label>
+                    <label htmlFor="name" className="form__label">Käyttäjätunnus</label>
                 </div>
-                <div class="form__group field">
+                <div className="form__group field">
                     <input
                         type="password"
-                        class="form__field"
+                        className="form__field"
                         placeholder="Salasana"
                         name="password"
                         id='password'
@@ -55,16 +55,14 @@ const LogIn = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label for="name" class="form__label">Salasana</label>
+                    <label htmlFor="name" className="form__label">Salasana</label>
                 </div>
 
-                {/*
-                <div class="button" id="button-2">
+                <div className="button" id="button-2" onClick={() => document.getElementById("logInButton").click()}>
                     <div id="slide"></div>
                     <p>Kirjaudu sisään</p>
                 </div>
-                */}
-                <input type="submit" value="Luo käyttäjä" />
+                <input id="logInButton" style={{ display: "none" }} type="submit" value="Kirjaudu"/>
 
             </div>
         </form>
