@@ -7,10 +7,10 @@ const Home = () => {
     return (
         <div id="mainContainer">
         <Header />
-        <Sidebar />
         <div id="mapContainer">
           <Map />
         </div>
+        <Sidebar />
       </div>
     )
   }

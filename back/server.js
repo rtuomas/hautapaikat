@@ -60,15 +60,18 @@ app.get('/', (req, res) => {
 app.post('/addDead', (req, res) => {
 
   console.log(req.body)
-  const person = req.body
+  const person = req.body.newGrave
 
 
   const newPerson = new Dead({
-    name: person.name,
+    name: person.firstName + " " + person.lastName,
     birthday: person.birthday,
     died: person.died,
     cemetery: person.cemetery,
-    location: { lat: person.location.lat, long: person.location.long }
+    location: {
+      lat: person.coordinateX,
+      long: person.coordinateY
+    }
   });
   newPerson.save()
 

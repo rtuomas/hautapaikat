@@ -12,8 +12,10 @@ body {
 }
 
 #mapContainer {
+    position: absolute;
     margin-left: 25vw;
     margin-right: 25vw;
+    margin-top: 5vw;
     width: 56vw;
     height: 35vw;
     justify-content: center;
@@ -30,6 +32,10 @@ body {
   height: 25vw;
   justify-content: center;
 }
+
+/* Form for a new grave */
+
+
 
 /* Log in and register buttons */
 
@@ -153,8 +159,12 @@ a.datalink:hover, a.datalink:active {
 /* Sidebar */
 
 #sidebar {
-    display: flex;
+    display: inline-block;
     margin: 1em auto;
+}
+
+#newGraveForm {
+  display: inline-grid;
 }
 
 /* Search bar CSS starts here */
