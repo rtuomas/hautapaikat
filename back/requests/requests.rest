@@ -6,13 +6,16 @@ POST http://localhost:3002/addDead
 Content-Type: application/json
 
 {
-  "name": "Nimi",
-  "birthday": "01/01/1950",
-  "died": "01/01/2005",
-  "cemetery": "Kellonummen hautausmaa",
-  "location": {
-    "lat": 12345.123,
-    "long": 1234.123
+  "newGrave": {
+    "firstName": "Etunimi",
+    "lastName": "Sukunimi",
+    "birthday": "01/01/1950",
+    "died": "01/01/2005",
+    "cemetery": "Kellonummen hautausmaa",
+    "location": {
+      "lat": 12345.123,
+      "long": 1234.123
+    }
   }
 }
 

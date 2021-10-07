@@ -24,8 +24,7 @@ const Sidebar = (props) => {
         birthday: "",
         died: "",
         cemetery: "",
-        coordinateX: "",
-        coordinateY: "",
+        location: {lat: "", long: ""},
         category: "musician"
     };
 
@@ -35,7 +34,7 @@ const Sidebar = (props) => {
         event.preventDefault();
         console.log(newGrave);
 
-        axios.post("http://localhost:3002/addDead", { 
+        axios.post("http://localhost:3002/addDead", {
             newGrave
         }).then(res =>  {
             console.log(res)
@@ -77,11 +76,10 @@ const Sidebar = (props) => {
                                 <input type="input" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
 
                                 <label htmlFor="x" style={{color:"white", marginRight:"1em"}}>X-koordinaatti</label>
-                                <input type="input" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.coordinateX = event.target.value} />
-
+                                <input type="input" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} />
 
                                 <label htmlFor="y" style={{color:"white", marginRight:"1em"}}>Y-koordinaatti</label>
-                                <input type="input" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.coordinateY = event.target.value} />
+                                <input type="input" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} />
 
                             <label htmlFor="category" style={{color:"white", marginRight:"1em"}}>Kategoria</label>
                             <select name="category" id="category" onChange={event => newGrave.category = event.target.value}>

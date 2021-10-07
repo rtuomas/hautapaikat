@@ -69,8 +69,8 @@ app.post('/addDead', (req, res) => {
     died: person.died,
     cemetery: person.cemetery,
     location: {
-      lat: person.coordinateX,
-      long: person.coordinateY
+      lat: person.location.lat,
+      long: person.location.long
     }
   });
   newPerson.save()
