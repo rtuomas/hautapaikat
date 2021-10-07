@@ -24,8 +24,15 @@ const newGrave = (newGrave) => {
   return request.then(response => response.data)
 }
 
-const exportedObject = {
-  newUser, login, newGrave
+const loadGraves = async () => {
+  const response = await axios.get(`http://localhost:3002`)
+  return response.data
 }
+
+const exportedObject = {
+  newUser, login, newGrave, loadGraves
+}
+
+
 
 export default exportedObject

@@ -31,6 +31,32 @@ const Sidebar = (props) => {
 
     const [isOpen, setOpen] = useState(false)
 
+    function loadGraves(){
+        services.loadGraves().then(graves => {
+            fillMapWith(graves)
+            fillListWith(graves)
+        }).catch(error => {
+            console.log(`Problem loading graves from database: ${error}`)
+        })
+    }
+
+    function fillMapWith(array){
+        for(let item of array){
+            const location = item.location
+            if(location){
+                console.log('Draw market at ' + location.lat + ',' + location.long)
+            }
+        }
+    }
+
+    function fillListWith(array){
+        for(let item of array){
+            if(item.name){
+                console.log('Add item on list with title ' + item.name)
+            }
+        }
+    }
+
     function sendFormData(event) {
         event.preventDefault();
         console.log(newGrave);
@@ -114,6 +140,8 @@ const Sidebar = (props) => {
         position: [63.5538179, 27.7496755],
         info: "Merkintä sidebarilta nro. "
     };
+
+    loadGraves()
 
     return (
     <>
