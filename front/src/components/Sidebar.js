@@ -2,6 +2,7 @@ import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 import { FaPlusCircle } from "@react-icons/all-files/fa/FaPlusCircle";
 import { FaMinusCircle } from "@react-icons/all-files/fa/FaMinusCircle";
 import { useState } from "react"
+import services from '../services/axios_services'
 import axios from "axios";
 
 const searchField = () => {
@@ -34,6 +35,15 @@ const Sidebar = (props) => {
         event.preventDefault();
         console.log(newGrave);
 
+        services
+            .newGrave(newGrave)
+            .then(res => {
+                console.log(res)
+            }).catch(error => {
+                console.log(error)
+            })
+
+        /*
         axios.post("http://localhost:3002/addDead", {
             newGrave
         }).then(res =>  {
@@ -41,6 +51,7 @@ const Sidebar = (props) => {
         }).catch(error => {
             console.log(error);
         })
+        */
     }
 
     function addGrave() {

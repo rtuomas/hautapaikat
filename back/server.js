@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 
 
 //TODO middleware varmistus siitä että on oikeutettu lisäämään henkilö /tuomas
-app.post('/addDead', (req, res) => {
+app.post('/api/addDead', (req, res) => {
 
   console.log(req.body)
   const person = req.body.newGrave

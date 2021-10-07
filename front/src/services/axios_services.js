@@ -19,8 +19,13 @@ const login = (username, password) => {
   return request.then(response => response.data)
 }
 
+const newGrave = (newGrave) => {
+  const request = axios.post(`${baseUrl}/addDead`, {newGrave})
+  return request.then(response => response.data)
+}
+
 const exportedObject = {
-  newUser, login
+  newUser, login, newGrave
 }
 
 export default exportedObject
