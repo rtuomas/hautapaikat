@@ -1,11 +1,15 @@
 import React, { useState } from "react"
 import Header from './Header'
 import services from '../services/axios_services'
+import { useHistory } from 'react-router-dom'
 
 const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const [RegisterNotification, setRegisterNotification] = useState("");
+
+    const history = useHistory()
 
 
     function registerSubmit(event) {
@@ -14,7 +18,17 @@ const Register = () => {
             services
                 .newUser(username, password, password2)
                 .then(res => {
-                    console.log(res.message)
+
+                    console.log(res)
+                    if(res.status===202){
+                        setRegisterNotification(res.message + ', \n Redirecting to login page!')
+
+                        //setRegisterNotification(res.message)
+                        history.push('/login')
+                    } else {
+                        setRegisterNotification(res.message)
+                    }
+
                 }).catch(error => {
                     console.log(error)
                 })
@@ -81,7 +95,7 @@ const Register = () => {
                     <p>Kirjaudu sisään</p>
                 </div>
                 <input type="submit" id="registerButton" style={{ display: "none" }} value="Luo käyttäjä" />
-
+                <p>{RegisterNotification}</p>
             </div>
         </form>
     )

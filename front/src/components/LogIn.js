@@ -1,11 +1,14 @@
 import React, { useState } from "react"
 import Header from './Header'
 import services from '../services/axios_services'
+import { useHistory } from 'react-router-dom'
 
 const LogIn = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loginNotification, setLoginNotification] = useState("");
+
+    const history = useHistory()
 
     function loginSubmit(event) {
         event.preventDefault()
@@ -13,9 +16,14 @@ const LogIn = () => {
             services
                 .login(username, password)
                 .then(res => {
-                    localStorage.setItem("myToken", JSON.stringify(res.accessToken))
-                    localStorage.setItem("username", JSON.stringify(res.username))
-                    setLoginNotification(res.message)
+                    console.log(res)
+                    if(res.status===202){
+                        localStorage.setItem("myToken", JSON.stringify(res.accessToken))
+                        localStorage.setItem("username", JSON.stringify(res.username))
+                        history.push('/')
+                    } else {
+                        setLoginNotification(res.message)
+                    }
                 }).catch(error => {
                     console.log(error)
                 })

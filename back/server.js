@@ -95,7 +95,10 @@ app.post('/api/newUser', (req, res) => {
     .find( {username: username} )
     .then(async function(result) {
       if(result.length>0){
-        res.json({message: "Username already in use."})
+        res.json({
+          status: 400,
+          message: "Username already in use."
+        })
       } else {
 
         let today = new Date();
@@ -114,14 +117,18 @@ app.post('/api/newUser', (req, res) => {
         });
         await user.save()
 
-        res.json({message: "Successful registration."})
+        res.status(202).json({
+          status: 202,
+          message: "Successful registration."
+        })
       }
-
     })
 
-
   } else {
-    res.json( {message: "Validation failed."} )
+    res.json({
+      status: 400,
+      message: "Validation failed."
+    })
   }
 
 
@@ -153,6 +160,7 @@ app.post('/api/login', (req, res) => {
         const accessToken = jwt.sign({username: result[0].username}, process.env.JWT_SECRET)
 
         res.status(202).json({
+          status: 202,
           message: "Login successful",
           username: result[0].username,
           accessToken: accessToken
@@ -162,11 +170,17 @@ app.post('/api/login', (req, res) => {
         //res.json(200)
 
       } else {
-        res.json({message: "Username or password wrong, try again!"})
+        res.json({
+          status: 401,
+          message: "Username or password wrong, try again!"
+        })
       }
     })
     .catch( () => {
-      res.json({message: "Username or password wrong, try again!"})
+      res.json({
+        status: 401,
+        message: "Username or password wrong, try again!"
+      })
     })
 });
 
