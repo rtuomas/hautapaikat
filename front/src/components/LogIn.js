@@ -5,6 +5,7 @@ import services from '../services/axios_services'
 const LogIn = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [loginNotification, setLoginNotification] = useState("");
 
     function loginSubmit(event) {
         event.preventDefault()
@@ -12,13 +13,14 @@ const LogIn = () => {
             services
                 .login(username, password)
                 .then(res => {
-                    console.log(res.message)
+                    localStorage.setItem("myToken", JSON.stringify(res.accessToken))
+                    localStorage.setItem("username", JSON.stringify(res.username))
+                    setLoginNotification(res.message)
                 }).catch(error => {
                     console.log(error)
                 })
         } else {
-            //TODO KÄYTTÖLIITTYMÄÄN ILMOITUS
-            console.log("Validation failed")
+            setLoginNotification('Username and/or password wrong. TRY AGAIN!')
         }
     }
 
@@ -63,7 +65,7 @@ const LogIn = () => {
                     <p>Kirjaudu sisään</p>
                 </div>
                 <input id="logInButton" style={{ display: "none" }} type="submit" value="Kirjaudu"/>
-
+                <p style={{ color: "red" }}>{loginNotification}</p>
             </div>
         </form>
     )

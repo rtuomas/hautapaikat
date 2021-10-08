@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const app = express();
 
 
@@ -149,15 +150,24 @@ app.post('/api/login', (req, res) => {
 
       if(match) {
 
-        //JWT yms härpäkkeet tänne /tuomas
-        res.json( {message: "Login successful"} )
+        const accessToken = jwt.sign({username: result[0].username}, process.env.JWT_SECRET)
+
+        res.status(202).json({
+          message: "Login successful",
+          username: result[0].username,
+          accessToken: accessToken
+        })
+        //console.log('asd')
+        //res.redirect('http://localhost:3000')
+        //res.json(200)
 
       } else {
         res.json({message: "Username or password wrong, try again!"})
       }
-
     })
-
+    .catch( () => {
+      res.json({message: "Username or password wrong, try again!"})
+    })
 });
 
 app.listen(PORT, () => {
