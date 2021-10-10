@@ -3,7 +3,7 @@ import Header from './Header'
 import services from '../services/axios_services'
 import { useHistory } from 'react-router-dom'
 
-const LogIn = () => {
+const LogIn = ( {setIsLoggedIn} ) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loginNotification, setLoginNotification] = useState("");
@@ -21,6 +21,7 @@ const LogIn = () => {
                         localStorage.setItem("myToken", JSON.stringify(res.accessToken))
                         localStorage.setItem("username", JSON.stringify(res.username))
                         history.push('/')
+                        setIsLoggedIn(true)
                     } else {
                         setLoginNotification(res.message)
                     }

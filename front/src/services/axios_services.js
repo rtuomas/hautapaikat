@@ -20,7 +20,13 @@ const login = (username, password) => {
 }
 
 const newGrave = (newGrave) => {
-  const request = axios.post(`${baseUrl}/addDead`, {newGrave})
+  const accessTokenObj = JSON.parse(localStorage.getItem("myToken"))
+  const request = axios
+    .post(
+      `${baseUrl}/addDead`,
+        newGrave,
+      { headers: {Authorization: 'Bearer: ' + accessTokenObj} }
+  )
   return request.then(response => response.data)
 }
 

@@ -3,7 +3,6 @@ import { FaPlusCircle } from "@react-icons/all-files/fa/FaPlusCircle";
 import { FaMinusCircle } from "@react-icons/all-files/fa/FaMinusCircle";
 import { useState } from "react"
 import services from '../services/axios_services'
-import axios from "axios";
 
 const searchField = () => {
     return (
@@ -18,6 +17,7 @@ const searchField = () => {
 }
 
 const Sidebar = (props) => {
+    const [newGraveNotification, setNewGraveNotification] = useState("");
 
     let newGrave = {
         firstName: "",
@@ -52,7 +52,7 @@ const Sidebar = (props) => {
     function fillListWith(array){
         for(let item of array){
             if(item.name){
-                console.log('Add item on list with title ' + item.name)
+                //console.log('Add item on list with title ' + item.name)
             }
         }
     }
@@ -64,7 +64,7 @@ const Sidebar = (props) => {
         services
             .newGrave(newGrave)
             .then(res => {
-                console.log(res)
+                setNewGraveNotification(res.message)
             }).catch(error => {
                 console.log(error)
             })
@@ -128,6 +128,7 @@ const Sidebar = (props) => {
                             <input id="newGraveButton" style={{ marginTop: "1em" }} type="submit" value="Lähetä"/>
                         </div>
                     </form>
+                    <p style={{color:"red"}}>{newGraveNotification}</p>
                 </div>
             </>
             )

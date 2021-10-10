@@ -47,7 +47,7 @@ const User = mongoose.model('User', userSchema)
 app.get('/', (req, res) => {
 
   Dead.find().then( result => {
-    console.log(result)
+    //console.log(result)
     res.json(result)
   })
   .catch(error => {
@@ -58,10 +58,10 @@ app.get('/', (req, res) => {
 
 
 //TODO middleware varmistus siitä että on oikeutettu lisäämään henkilö /tuomas
-app.post('/api/addDead', (req, res) => {
+app.post('/api/addDead', authenticateToken, (req, res) => {
 
-  console.log(req.body)
-  const person = req.body.newGrave
+  //console.log("addDEAD", req.body)
+  const person = req.body
 
 
   const newPerson = new Dead({
@@ -76,9 +76,33 @@ app.post('/api/addDead', (req, res) => {
   });
   newPerson.save()
 
-  res.json( {message: "Toimii ja tallennettu"} )
+  res.json( {message: "New grave added!"} )
 
 });
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (token == null) {
+    // Älä poista /tuomas
+    //return res.status(401).json( {message: "Please login first! (token null)"} )
+    return res.json( {message: "Please login first! (token null)"} )
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+
+    // Älä poista /tuomas
+    //if (err) return res.status(403).json({message: "Please login first! (error)"})
+    if (err) return res.json( {message: "Please login first! (error jwt verifying)"} )
+
+    console.log('user', user)
+    console.log("user (decoded) " + JSON.stringify(user))
+
+    req.user = user
+
+    next()
+  })
+}
 
 
 app.post('/api/newUser', (req, res) => {

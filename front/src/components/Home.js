@@ -4,7 +4,7 @@ import Map from './Map'
 import { useState } from "react"
 import '../css/App.css';
 
-const Home = () => {
+const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
 
   /* Markkereiden state. Lisäysfunktio handleAddMarker annetaan Sidebarille ja markkereiden tiedot Mapille joka piirtää ne kartalle */
 
@@ -17,7 +17,7 @@ const Home = () => {
       info: "Hauta 1"
     }
   ]
-  
+
   // Markkereiden staten määritys
 
   const [markers, addMarker] = useState(initialMarkers)
@@ -38,7 +38,7 @@ const Home = () => {
 
     return (
         <div id="mainContainer">
-        <Header />
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div id="mapContainer">
           {/* Markkerien tiedot mapille */}
           <Map markers={markers} />
