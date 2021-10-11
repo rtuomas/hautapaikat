@@ -19,6 +19,8 @@ const searchField = () => {
 const Sidebar = (props) => {
     const [newGraveNotification, setNewGraveNotification] = useState("");
 
+    console.log(props.graves + " at sidebar")
+
     let newGrave = {
         firstName: "",
         lastName: "",
@@ -30,15 +32,6 @@ const Sidebar = (props) => {
     };
 
     const [isOpen, setOpen] = useState(false)
-
-    function loadGraves(){
-        services.loadGraves().then(graves => {
-            fillMapWith(graves)
-            fillListWith(graves)
-        }).catch(error => {
-            console.log(`Problem loading graves from database: ${error}`)
-        })
-    }
 
     function fillMapWith(array){
         for(let item of array){
@@ -142,15 +135,26 @@ const Sidebar = (props) => {
         info: "Merkintä sidebarilta nro. "
     };
 
-    loadGraves()
-
     return (
     <>
       <ul id="sidebar">
         {/* Kutsutaan propseina saatua addMarkeria */}
         <button onClick={() => props.addMarker(dynamicMarker)}>Lisää markkeri</button>
         { addGrave() }
-        { searchField() }
+        <div style={{display:"flex"}}>
+            <FaSearch style={{ color: "white", marginRight: "1em", marginTop: "2.5em"}} id="searchIcon" />
+            <div className="form__group field">
+                <input type="input" className="form__field" placeholder="Hae" name="name" id='name' required />
+                <label htmlFor="name" className="form__label">Hae</label>
+            </div>
+        </div>
+        <ul id="results">
+        {props.graves.map(item => 
+          <li key={item.id}>
+              {item.name}
+          </li>
+        )}
+        </ul>
     </ul>
     </>
     )
