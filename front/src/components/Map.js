@@ -6,8 +6,6 @@ import L from 'leaflet';
 
 const Map = (props) => {
 
-  console.log(props.coordinatesToZoom)
-
     let DefaultIcon = L.icon({
         iconUrl: icon,
         shadowUrl: iconShadow,

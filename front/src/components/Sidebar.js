@@ -5,7 +5,6 @@ import { useState } from "react"
 import services from '../services/axios_services'
 
 const Sidebar = (props) => {
-    console.log(props.graves)
     const [newGraveNotification, setNewGraveNotification] = useState("");
 
     let newGrave = {
