@@ -38,6 +38,7 @@ const Map = (props) => {
                 <li>Syntynyt: { marker.birthday }</li>
                 <li>Kuollut: { marker.died }</li>
                 <li>Hautausmaa: { marker.cemetery }</li>
+                <li>Kategoria: { marker.category ?? "-" }</li>
             </ul>
           </Popup>
           </Marker>

@@ -14,7 +14,7 @@ const Sidebar = (props) => {
         died: "",
         cemetery: "",
         location: {lat: "", long: ""},
-        category: "musician"
+        category: ""
     };
 
     const [isOpen, setOpen] = useState(false)
@@ -91,11 +91,13 @@ const Sidebar = (props) => {
                                 <input type="input" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} />
 
                             <label htmlFor="category" style={{color:"white", marginRight:"1em"}}>Kategoria</label>
-                            <select name="category" id="category" onChange={event => newGrave.category = event.target.value}>
-                                <option value="musician">Muusikko</option>
-                                <option value="politician">Poliitikko</option>
-                                <option value="actor">Näyttelijä</option>
-                                <option value="other">Muu</option>
+                            <select name="category" id="category" onChange={event => newGrave.category = event.target.value} required>
+                                <option value="-">kategoriaa</option>
+                                <option value="Musiikki">Muusikko</option>
+                                <option value="Politiikka">Poliitikko</option>
+                                <option value="Elokuvat">Elokuvat</option>
+                                <option value="Viihde">Viihde</option>
+                                <option value="Muu">Muu</option>
                             </select>
                             <input id="newGraveButton" style={{ marginTop: "1em" }} type="submit" value="Lähetä"/>
                         </div>
@@ -115,9 +117,29 @@ const Sidebar = (props) => {
         }
     }
 
-    const filteredResults = props.graves.filter(item => {
-        return item.name.toLowerCase().includes(searchContent) || item.name.toLowerCase().includes(searchContent) || item.name.includes(searchContent)
-    })
+    function chooseFilteringMethod() {
+        let array;
+        if (searchContent.charAt(0) === "#") {
+            array = props.graves.filter(item => {
+                if(item.category) {
+                    return item.category.includes(searchContent.substring(1))
+                } else {
+                    return null
+                }
+            })
+        } else if (searchContent.charAt(0) === "@") {
+            array = props.graves.filter(item => {
+                return item.cemetery.includes(searchContent.substring(1)) || item.cemetery.toUpperCase().includes(searchContent.substring(1)) || item.cemetery.toLowerCase().includes(searchContent.substring(1))
+            })
+        } else if (searchContent.length > 0) {
+            array = props.graves.filter(item => {
+                return item.name.toLowerCase().includes(searchContent) || item.name.toUpperCase().includes(searchContent) || item.name.includes(searchContent)
+            })
+        } else if (searchContent.length === 0) {
+            array = props.graves
+        }
+        return array;
+    }
 
     function handleSearching(event) {
         event.preventDefault()
@@ -125,10 +147,9 @@ const Sidebar = (props) => {
     }
 
     const resultsList = () => {
-        if (searchContent.length > 0) {
-            return (
+        return (
             <ul id="results">
-            {filteredResults.map(item =>
+            {chooseFilteringMethod().map(item =>
             <li key={item._id} id="singleResult" onClick={() => handleResultClick(!resultDetails, item._id, item.location)}>
                 {item.name}
                 {(() => {
@@ -139,6 +160,7 @@ const Sidebar = (props) => {
                                 <li>Syntynyt: { item.birthday }</li>
                                 <li>Kuollut: { item.died }</li>
                                 <li>Hautausmaa: { item.cemetery }</li>
+                                <li>Kategoria: { item.category ?? "-" }</li>
                             </ul>
                         </div>
                     )
@@ -148,30 +170,6 @@ const Sidebar = (props) => {
             )}
         </ul>
             )
-        } else {
-            return (
-                <ul id="results">
-                {props.graves.map(item => 
-                <li key={item._id} id="singleResult" onClick={() => handleResultClick(!resultDetails, item._id, item.location)}>
-                    {item.name}
-                    {(() => {
-                    if (resultDetails && idOfDetails === item._id){
-                        return (
-                            <div id="singleResultDetails">
-                                <ul>
-                                    <li>Syntynyt: { item.birthday }</li>
-                                    <li>Kuollut: { item.died }</li>
-                                    <li>Hautausmaa: { item.cemetery }</li>
-                                </ul>
-                            </div>
-                        )
-                    }
-                })()}
-                </li>
-                )}
-            </ul>
-            )
-        }
     }
 
     return (

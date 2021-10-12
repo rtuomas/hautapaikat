@@ -29,6 +29,7 @@ const deadSchema = new mongoose.Schema({
   birthday: Date,
   died: Date,
   cemetery: String,
+  category: String,
   location: {
     lat: Number, long: Number
   }
@@ -69,6 +70,7 @@ app.post('/api/addDead', authenticateToken, (req, res) => {
     birthday: person.birthday,
     died: person.died,
     cemetery: person.cemetery,
+    category: person.category,
     location: {
       lat: +person.location.lat,
       long: +person.location.long
