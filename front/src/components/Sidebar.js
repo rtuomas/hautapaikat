@@ -41,15 +41,23 @@ const Sidebar = (props) => {
 
     function sendFormData(event) {
         event.preventDefault();
-        console.log(newGrave);
+        if (validateForm()) {
+                console.log(newGrave);
+                services
+                    .newGrave(newGrave)
+                    .then(res => {
+                        setNewGraveNotification(res.message)
+                    }).catch(error => {
+                        console.log(error)
+                    })
+            } else {
+                setNewGraveNotification('Fill every field and try again')
+            }
+    }
 
-        services
-            .newGrave(newGrave)
-            .then(res => {
-                setNewGraveNotification(res.message)
-            }).catch(error => {
-                console.log(error)
-            })
+    function validateForm() {
+        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 && 
+            newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0)       
     }
 
     function addGrave() {
@@ -85,14 +93,14 @@ const Sidebar = (props) => {
                                 <input type="input" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
 
                                 <label htmlFor="x" style={{color:"white", marginRight:"1em"}}>X-koordinaatti</label>
-                                <input type="input" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} />
+                                <input type="number" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} />
 
                                 <label htmlFor="y" style={{color:"white", marginRight:"1em"}}>Y-koordinaatti</label>
-                                <input type="input" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} />
+                                <input type="number" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} />
 
                             <label htmlFor="category" style={{color:"white", marginRight:"1em"}}>Kategoria</label>
                             <select name="category" id="category" onChange={event => newGrave.category = event.target.value} required>
-                                <option value="-">kategoriaa</option>
+                                <option value="-">Ei kategoriaa</option>
                                 <option value="Musiikki">Muusikko</option>
                                 <option value="Politiikka">Poliitikko</option>
                                 <option value="Elokuvat">Elokuvat</option>
@@ -122,7 +130,7 @@ const Sidebar = (props) => {
         if (searchContent.charAt(0) === "#") {
             array = props.graves.filter(item => {
                 if(item.category) {
-                    return item.category.includes(searchContent.substring(1))
+                    return item.category.includes(searchContent.substring(1)) || item.category.toUpperCase().includes(searchContent.substring(1)) || item.category.toLowerCase().includes(searchContent.substring(1))
                 } else {
                     return null
                 }
