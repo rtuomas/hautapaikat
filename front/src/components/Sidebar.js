@@ -4,22 +4,9 @@ import { FaMinusCircle } from "@react-icons/all-files/fa/FaMinusCircle";
 import { useState } from "react"
 import services from '../services/axios_services'
 
-const searchField = () => {
-    return (
-    <div style={{display:"flex"}}>
-    <FaSearch style={{ color: "white", marginRight: "1em", marginTop: "2.5em"}} id="searchIcon" />
-        <div className="form__group field">
-            <input type="input" className="form__field" placeholder="Hae" name="name" id='name' required />
-            <label htmlFor="name" className="form__label">Hae</label>
-        </div>
-    </div>
-    )
-}
-
 const Sidebar = (props) => {
+    console.log(props.graves)
     const [newGraveNotification, setNewGraveNotification] = useState("");
-
-    console.log(props.graves + " at sidebar")
 
     let newGrave = {
         firstName: "",
@@ -32,8 +19,11 @@ const Sidebar = (props) => {
     };
 
     const [isOpen, setOpen] = useState(false)
+    const [searchContent, setSearchContent] = useState("")
+    const [resultDetails, showResultDetails] = useState(false)
+    const [idOfDetails, setId] = useState("")
 
-    function fillMapWith(array){
+    /*function fillMapWith(array){
         for(let item of array){
             const location = item.location
             if(location){
@@ -48,7 +38,7 @@ const Sidebar = (props) => {
                 //console.log('Add item on list with title ' + item.name)
             }
         }
-    }
+    }*/
 
     function sendFormData(event) {
         event.preventDefault();
@@ -61,16 +51,6 @@ const Sidebar = (props) => {
             }).catch(error => {
                 console.log(error)
             })
-
-        /*
-        axios.post("http://localhost:3002/addDead", {
-            newGrave
-        }).then(res =>  {
-            console.log(res)
-        }).catch(error => {
-            console.log(error);
-        })
-        */
     }
 
     function addGrave() {
@@ -128,33 +108,85 @@ const Sidebar = (props) => {
         }
     }
 
-    // Lisättävä demomarker. Tiedot tulevat siis myöhemmin klikkaamalla haluttua vainajaa.
+    function handleResultClick(showOrHide, id, location) {
+        showResultDetails(showOrHide)
+        setId(id)
+        if(showOrHide) {
+            props.handleSetCoordinatesForZoom(location)
+        }
+    }
 
-    let dynamicMarker = {
-        position: [63.5538179, 27.7496755],
-        info: "Merkintä sidebarilta nro. "
-    };
+    const filteredResults = props.graves.filter(item => {
+        return item.name.toLowerCase().includes(searchContent) || item.name.toLowerCase().includes(searchContent) || item.name.includes(searchContent)
+    })
+
+    function handleSearching(event) {
+        event.preventDefault()
+        setSearchContent(event.target.value)
+    }
+
+    const resultsList = () => {
+        if (searchContent.length > 0) {
+            return (
+            <ul id="results">
+            {filteredResults.map(item =>
+            <li key={item._id} id="singleResult" onClick={() => handleResultClick(!resultDetails, item._id, item.location)}>
+                {item.name}
+                {(() => {
+                if (resultDetails && idOfDetails === item._id){
+                    return (
+                        <div id="singleResultDetails">
+                            <ul>
+                                <li>Syntynyt: { item.birthday }</li>
+                                <li>Kuollut: { item.died }</li>
+                                <li>Hautausmaa: { item.cemetery }</li>
+                            </ul>
+                        </div>
+                    )
+                }
+            })()}
+            </li>
+            )}
+        </ul>
+            )
+        } else {
+            return (
+                <ul id="results">
+                {props.graves.map(item => 
+                <li key={item._id} id="singleResult" onClick={() => handleResultClick(!resultDetails, item._id, item.location)}>
+                    {item.name}
+                    {(() => {
+                    if (resultDetails && idOfDetails === item._id){
+                        return (
+                            <div id="singleResultDetails">
+                                <ul>
+                                    <li>Syntynyt: { item.birthday }</li>
+                                    <li>Kuollut: { item.died }</li>
+                                    <li>Hautausmaa: { item.cemetery }</li>
+                                </ul>
+                            </div>
+                        )
+                    }
+                })()}
+                </li>
+                )}
+            </ul>
+            )
+        }
+    }
 
     return (
     <>
       <ul id="sidebar">
-        {/* Kutsutaan propseina saatua addMarkeria */}
-        <button onClick={() => props.addMarker(dynamicMarker)}>Lisää markkeri</button>
         { addGrave() }
         <div style={{display:"flex"}}>
             <FaSearch style={{ color: "white", marginRight: "1em", marginTop: "2.5em"}} id="searchIcon" />
             <div className="form__group field">
-                <input type="input" className="form__field" placeholder="Hae" name="name" id='name' required />
+                <input type="input" className="form__field" placeholder="Hae" name="search" id='search' onChange={event => handleSearching(event)} />
                 <label htmlFor="name" className="form__label">Hae</label>
             </div>
         </div>
-        <ul id="results">
-        {props.graves.map(item => 
-          <li key={item.id}>
-              {item.name}
-          </li>
-        )}
-        </ul>
+        { resultsList() }
     </ul>
     </>
     )

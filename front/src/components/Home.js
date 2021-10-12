@@ -9,57 +9,20 @@ import services from '../services/axios_services'
 
 const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
 
-
-
-  /* Markkereiden state. Lisäysfunktio handleAddMarker annetaan Sidebarille ja markkereiden tiedot Mapille joka piirtää ne kartalle */
-
-  // Markkereiden staten alustus
-
-  const initialMarkers = [
-    {
-      id: 1,
-      position: [64.5538179, 27.7496755],
-      info: "Hauta 1"
-    }
-  ]
-
-  // Markkereiden staten määritys
-
   const [gravesLoaded, setGravesLoaded] = useState(false)
-  const [markers, addMarker] = useState(initialMarkers)
+  const [coordinatesToZoom, setCoordinatesForZooming] = useState()
   const [graves, loadGraves] = useState([])
 
-  // Markkereiden lisäysfunktio, jota kutsutaan Sidebarista
-
-  function handleAddMarker(marker) {
-    const updateMarkers = [
-      ...markers,
-      {
-        id: markers.length + 1,
-        position: marker.position,
-        info: marker.info + (markers.length + 1)
-      }
-    ];
-    addMarker(updateMarkers);
+  function handleSetCoordinatesForZoom(coordinates) {
+    setCoordinatesForZooming(coordinates)
   }
-
-  /*
- useEffect(() => {
-    services
-      .getProjects()
-      .then(initialProjects => {
-        setProjects(initialProjects)
-    })
-  }, [])
-
-  */
 
   function jloadGraves(){
     if(gravesLoaded){
       // already loaded 
     } else {
       services.loadGraves().then(gravesData => {
-          console.log(gravesData)
+          //console.log(gravesData)
           loadGraves(gravesData)
           setGravesLoaded(true)
       }).catch(error => {
@@ -75,10 +38,10 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div id="mapContainer">
           {/* Markkerien tiedot mapille */}
-          <Map markers={markers} graves={graves}/>
+          <Map graves={graves} coordinatesToZoom={coordinatesToZoom}/>
         </div>
         {/* Markkerien lisäysfunktio sidebarille */}
-        <Sidebar addMarker={handleAddMarker} graves={graves}/>
+        <Sidebar graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom}/>
       </div>
     )
   }

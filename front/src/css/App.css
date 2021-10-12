@@ -14,10 +14,10 @@ body {
 #mapContainer {
     position: absolute;
     margin-left: 25vw;
-    margin-right: 25vw;
-    margin-top: 5vw;
-    width: 56vw;
-    height: 35vw;
+    margin-top: 1vw;
+    width: 74vw;
+    overflow: hidden;
+    height: 45vw;
     justify-content: center;
     border: 3px solid #007EA7;
 }
@@ -161,6 +161,34 @@ a.datalink:hover, a.datalink:active {
 #sidebar {
     display: inline-block;
     margin: 1em auto;
+}
+
+#results {
+  list-style-type: none;
+  padding-top: 1rem;
+  padding-left: 2rem;
+}
+
+#singleResult {
+  padding-top: 0.5rem;
+  color: white;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+#singleResultDetails {
+  cursor:auto;
+  padding-top: 0.5rem;
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+#singleResult:hover {
+  cursor: pointer;
+  color:#007EA7
 }
 
 #newGraveForm {
