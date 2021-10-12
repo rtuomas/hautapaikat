@@ -3,7 +3,7 @@ import Header from './Header'
 import services from '../services/axios_services'
 import { useHistory } from 'react-router-dom'
 
-const Register = () => {
+const Register = ( {isLoggedIn} ) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");

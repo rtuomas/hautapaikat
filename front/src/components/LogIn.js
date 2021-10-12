@@ -3,7 +3,7 @@ import Header from './Header'
 import services from '../services/axios_services'
 import { useHistory } from 'react-router-dom'
 
-const LogIn = ( {setIsLoggedIn} ) => {
+const LogIn = ( {isLoggedIn, setIsLoggedIn} ) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loginNotification, setLoginNotification] = useState("");
@@ -18,18 +18,18 @@ const LogIn = ( {setIsLoggedIn} ) => {
                 .then(res => {
                     console.log(res)
                     if(res.status===202){
-                        localStorage.setItem("myToken", JSON.stringify(res.accessToken))
-                        localStorage.setItem("username", JSON.stringify(res.username))
+                        localStorage.setItem("myToken", JSON.stringify(res.data.accessToken))
+                        localStorage.setItem("username", JSON.stringify(res.data.username))
                         history.push('/')
                         setIsLoggedIn(true)
                     } else {
-                        setLoginNotification(res.message)
+                        setLoginNotification(res.data.message)
                     }
                 }).catch(error => {
                     console.log(error)
                 })
         } else {
-            setLoginNotification('Username and/or password wrong. TRY AGAIN!')
+            setLoginNotification('Username and/or password needs to be more than 0 characters. TRY AGAIN!')
         }
     }
 

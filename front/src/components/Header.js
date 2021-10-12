@@ -12,8 +12,9 @@ const Header = ( {isLoggedIn, setIsLoggedIn} ) => {
       <header>
         <h1><Link to="/">Hautapaikat.fi</Link></h1>
         <ul id="nav">
-            <li><Link className="hvr-wobble-skew" to="/about">Sivustosta</Link></li>
-            <button onClick={logOut}>Kirjaudu ulos</button>
+          <h4 style={{ color: "#e90177", margin:0, marginRight:30 }}>Tervetuloa, {JSON.parse(localStorage.getItem("username"))}!</h4>
+          <li><Link className="hvr-wobble-skew" to="/about">Sivustosta</Link></li>
+          <button onClick={logOut}>Kirjaudu ulos</button>
       </ul>
       </header>
     )

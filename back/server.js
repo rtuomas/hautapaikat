@@ -106,6 +106,23 @@ function authenticateToken(req, res, next) {
   })
 }
 
+app.post('/api/checkLogin', (req, res) => {
+  console.log('checkLogin')
+
+  const authHeader = req.body.headers['Authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (token == null) return res.status(401)
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+
+    if (err) return res.status(401)
+
+    res.status(200)
+  })
+
+});
+
 
 app.post('/api/newUser', (req, res) => {
   console.log("newUser")
@@ -121,10 +138,7 @@ app.post('/api/newUser', (req, res) => {
     .find( {username: username} )
     .then(async function(result) {
       if(result.length>0){
-        res.json({
-          status: 400,
-          message: "Username already in use."
-        })
+        res.status(400).json( {message: "Username already in use."} )
       } else {
 
         let today = new Date();
@@ -143,22 +157,13 @@ app.post('/api/newUser', (req, res) => {
         });
         await user.save()
 
-        res.status(202).json({
-          status: 202,
-          message: "Successful registration."
-        })
+        res.status(202).json( {message: "Successful registration."} )
       }
     })
 
   } else {
-    res.json({
-      status: 400,
-      message: "Validation failed."
-    })
+    res.status(400).json( {message: "Validation failed."} )
   }
-
-
-
 });
 
 function validateInputs(username, password, password2){
@@ -186,25 +191,19 @@ app.post('/api/login', (req, res) => {
         const accessToken = jwt.sign({username: result[0].username}, process.env.JWT_SECRET)
 
         res.status(202).json({
-          status: 202,
           message: "Login successful",
           username: result[0].username,
           accessToken: accessToken
         })
-        //console.log('asd')
-        //res.redirect('http://localhost:3000')
-        //res.json(200)
 
       } else {
-        res.json({
-          status: 401,
+        res.status(401).json({
           message: "Username or password wrong, try again!"
         })
       }
     })
     .catch( () => {
-      res.json({
-        status: 401,
+      res.status(401).json({
         message: "Username or password wrong, try again!"
       })
     })

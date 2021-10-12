@@ -16,7 +16,7 @@ const login = (username, password) => {
     username: username,
     password: password
   })
-  return request.then(response => response.data)
+  return request.then(response => response)
 }
 
 const newGrave = (newGrave) => {
@@ -35,8 +35,18 @@ const loadGraves = async () => {
   return response.data
 }
 
+const checkLogin = () => {
+  const token = JSON.parse(localStorage.getItem("myToken"))
+  const request = axios
+    .post(
+      `${baseUrl}/checkLogin`,
+      { headers: {Authorization: 'Bearer: ' + token} }
+  )
+  return request.then(response => response)
+}
+
 const exportedObject = {
-  newUser, login, newGrave, loadGraves
+  newUser, login, newGrave, loadGraves, checkLogin
 }
 
 
