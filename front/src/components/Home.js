@@ -26,18 +26,25 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
     //console.log(newGraveCoordinates)
   }
 
+  function getGraves() {
     if(gravesLoaded){
       // already loaded
     } else {
-      services.loadGraves().then(gravesData => {
-          //console.log(gravesData)
-          loadGraves(gravesData)
-          setGravesLoaded(true)
+      fetchGraves()
+    }
+  }
+
+  function fetchGraves() {
+    services.loadGraves().then(gravesData => {
+      //console.log(gravesData)
+      loadGraves(gravesData)
+      setGravesLoaded(true)
       }).catch(error => {
           console.log(`Problem loading graves from database: ${error}`)
       })
     }
 
+  getGraves();
 
     return (
         <div id="mainContainer">
@@ -50,7 +57,8 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
             graves={graves}
             handleSetCoordinatesForZoom={handleSetCoordinatesForZoom}
             newGraveCoordinates={newGraveCoordinates}
-            addingNewGrave={handleNewGraveAdding}/>
+            addingNewGrave={handleNewGraveAdding}
+            fetchGraves={fetchGraves}/>
         </div>
     )
   }
