@@ -85,10 +85,10 @@ const Sidebar = (props) => {
                                 <input type="input" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
 
                                 <label htmlFor="x" style={{color:"white", marginRight:"1em"}}>X-koordinaatti</label>
-                                <input type="number" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} />
+                                <input type="number" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} value={props.newGraveCoordinates.lat}/>
 
                                 <label htmlFor="y" style={{color:"white", marginRight:"1em"}}>Y-koordinaatti</label>
-                                <input type="number" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} />
+                                <input type="number" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} value={props.newGraveCoordinates.long} />
 
                             <label htmlFor="category" style={{color:"white", marginRight:"1em"}}>Kategoria</label>
                             <select name="category" id="category" onChange={event => newGrave.category = event.target.value} required>

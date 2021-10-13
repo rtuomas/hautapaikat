@@ -11,7 +11,7 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
   const [coordinatesToZoom, setCoordinatesForZooming] = useState()
   const [graves, loadGraves] = useState([])
   const [addingNewGrave, toggleGraveAdding] = useState(false)
-  const [newGraveCoordinates, updateNewGraveCoordinates] = useState({lat:0,lng:0})
+  const [newGraveCoordinates, updateNewGraveCoordinates] = useState({lat:0,long:0})
 
   function handleSetCoordinatesForZoom(coordinates) {
     setCoordinatesForZooming(coordinates)
@@ -23,7 +23,7 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
 
   function handleNewGraveCoordinates(coordinates){
     updateNewGraveCoordinates(coordinates)
-    console.log(newGraveCoordinates)
+    //console.log(newGraveCoordinates)
   }
 
     if(gravesLoaded){
@@ -44,7 +44,7 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div id="mapContainer">
           {/* Markkerien tiedot mapille */}
-          <Map graves={graves} coordinatesToZoom={coordinatesToZoom} passNewGraveCoordinates={handleNewGraveCoordinates}/>
+          <Map graves={graves} coordinatesToZoom={coordinatesToZoom} passNewGraveCoordinates={handleNewGraveCoordinates} addingNewGrave={addingNewGrave}/>
         </div>
         {/* Markkerien lisäysfunktio sidebarille */}
         <Sidebar isLoggedIn={isLoggedIn} graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom} newGraveCoordinates={newGraveCoordinates} addingNewGrave={handleNewGraveAdding}/>

@@ -4,12 +4,12 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 
+let moveEventAdded = false
+
 const Map = (props) => {
 
   let previousCoordinateUpdate = +new Date()
-  const coordinateUpdateMinInterval = 500
-
-  //console.log(props.addingNewGrave)
+  const coordinateUpdateMinInterval = 100
 
     let DefaultIcon = L.icon({
         iconUrl: icon,
@@ -21,8 +21,8 @@ const Map = (props) => {
       const timeNow = +new Date()
       if(timeNow - previousCoordinateUpdate > coordinateUpdateMinInterval){
         previousCoordinateUpdate = timeNow
-        //props.passNewGraveCoordinates(center)
-        console.log(center.lat)
+        const newCoords = {lat:center.lat,long:center.lng}
+        props.passNewGraveCoordinates(newCoords)
       }
     }
     
@@ -35,9 +35,14 @@ const Map = (props) => {
         />
         <MapConsumer>
         {(map) => {
-          map.on("move", function (e) {
-            getCenterCoordinates(map.getCenter())
-          });
+          if(moveEventAdded){
+            // already added
+          } else {
+            map.on("move", function (e) {
+              getCenterCoordinates(map.getCenter())
+            })
+            moveEventAdded = true
+          }
           if (props.coordinatesToZoom) {
             map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 10)
           }
