@@ -47,6 +47,7 @@ const Sidebar = (props) => {
         console.log("Delete grave: " + id)
         services.deleteGrave(id).then(res => {
             console.log(res)
+            props.fetchGraves();
         }).catch(error => {
             console.log(`Problem loading graves from database: ${error}`)
         })
@@ -121,6 +122,8 @@ const Sidebar = (props) => {
                                     <option value="Politiikka">Poliitikko</option>
                                     <option value="Elokuvat">Elokuvat</option>
                                     <option value="Viihde">Viihde</option>
+                                    <option value="Kulttuuri">Kulttuuri</option>
+                                    <option value="Kirjailija">Kirjailija</option>
                                     <option value="Muu">Muu</option>
                                 </select>
                                 <div className="button" id="button-7" onClick={() => document.getElementById("newGraveButton").click()} style={{marginTop: "1rem"}}>
@@ -193,10 +196,20 @@ const Sidebar = (props) => {
                                 <li>Hautausmaa: { item.cemetery }</li>
                                 <li>Kategoria: { item.category ?? "-" }</li>
                             </ul>
-                            <div id="deleteGrave" onClick={() => deleteGrave(item._id)}>
-                                <FaTimes id="deleteGraveIcon"/>
-                                <p>Poista hauta</p>
-                            </div>
+                            {(() => {
+                                if (props.isLoggedIn) {
+                                    return (
+                                        <div id="deleteGrave" onClick={() => deleteGrave(item._id)}>
+                                            <FaTimes id="deleteGraveIcon"/>
+                                            <p>Poista hauta</p>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                        null
+                                    )
+                                }
+                            })()}
                         </div>
                     )
                 }
