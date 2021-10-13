@@ -60,18 +60,27 @@ const Sidebar = (props) => {
             newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0)       
     }
 
+    function setGraveAddingTo(boolean){
+        props.addingNewGrave(boolean)
+    }
+
+    function toggleNewGraveForm(){
+        setOpen(!isOpen)
+        setGraveAddingTo(!isOpen)
+    }
+
     function addGrave() {
         if (!isOpen) {
             return (
             <div style={{ color: "white", marginRight: "1em", marginTop: "2.5em", display: "flex", cursor: "pointer" }}>
-                <p onClick={() => setOpen(!isOpen)}><FaPlusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
+                <p onClick={() => toggleNewGraveForm()}><FaPlusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
             </div>
             )
         } else {
             return (
             <>
                 <div style={{ color: "white", marginRight: "1em", marginTop: "2.5em", display: "flex", cursor: "pointer"}}>
-                    <p onClick={() => setOpen(!isOpen)}><FaMinusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
+                    <p onClick={() => toggleNewGraveForm() }><FaMinusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
                 </div>
 
                 <div id="newGraveContainer" style={{marginBottom: "3rem"}}>

@@ -5,19 +5,27 @@ import { useState } from "react"
 import '../css/App.css'
 import services from '../services/axios_services'
 
-
-
 const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
 
   const [gravesLoaded, setGravesLoaded] = useState(false)
   const [coordinatesToZoom, setCoordinatesForZooming] = useState()
   const [graves, loadGraves] = useState([])
+  const [addingNewGrave, toggleGraveAdding] = useState(false)
+  const [newGraveCoordinates, updateNewGraveCoordinates] = useState({lat:0,lng:0})
 
   function handleSetCoordinatesForZoom(coordinates) {
     setCoordinatesForZooming(coordinates)
   }
 
-  function jloadGraves(){
+  function handleNewGraveAdding(newState){
+    toggleGraveAdding(newState)
+  }
+
+  function handleNewGraveCoordinates(coordinates){
+    updateNewGraveCoordinates(coordinates)
+    console.log(newGraveCoordinates)
+  }
+
     if(gravesLoaded){
       // already loaded 
     } else {
@@ -29,19 +37,17 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
           console.log(`Problem loading graves from database: ${error}`)
       })
     }
-  }
 
-  jloadGraves()
 
     return (
         <div id="mainContainer">
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div id="mapContainer">
           {/* Markkerien tiedot mapille */}
-          <Map graves={graves} coordinatesToZoom={coordinatesToZoom}/>
+          <Map graves={graves} coordinatesToZoom={coordinatesToZoom} passNewGraveCoordinates={handleNewGraveCoordinates}/>
         </div>
         {/* Markkerien lisäysfunktio sidebarille */}
-        <Sidebar graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom}/>
+        <Sidebar graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom} newGraveCoordinates={newGraveCoordinates} addingNewGrave={handleNewGraveAdding}/>
       </div>
     )
   }
