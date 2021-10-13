@@ -34,9 +34,11 @@ const deleteGrave = (id) => {
   const accessTokenObj = JSON.parse(localStorage.getItem("myToken"))
   const request = axios
     .delete(
-      `${baseUrl}/deleteGrave`,
-        id,
-      { headers: {Authorization: 'Bearer: ' + accessTokenObj} }
+      `${baseUrl}/deleteGrave`, {
+        headers: {Authorization: 'Bearer: ' + accessTokenObj},
+        data: { id: id }
+      }
+
   )
   return request.then(response => response.data)
 }
