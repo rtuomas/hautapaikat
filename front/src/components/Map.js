@@ -70,9 +70,11 @@ const Map = (props) => {
             })
             moveEventAdded = true
           }
-          if (props.coordinatesToZoom !== previousZoomCoordinates) {
-            map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 10)
-            previousZoomCoordinates = props.coordinatesToZoom
+          if (props.coordinatesToZoom && (props.coordinatesToZoom !== previousZoomCoordinates)) {
+            if(props.coordinatesToZoom.lat){
+              map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 10)
+              previousZoomCoordinates = props.coordinatesToZoom
+            }
           }
           return null;
         }}
