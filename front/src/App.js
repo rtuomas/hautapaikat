@@ -24,7 +24,10 @@ const App = () => {
     <Router>
         <Switch>
 
-
+          <Route path="/about">
+            <About isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+          </Route>
+          
           <Route path={isLoggedIn ? '/' : '/login'}>
             {isLoggedIn
               ? <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
@@ -37,13 +40,8 @@ const App = () => {
               : <Register isLoggedIn={isLoggedIn} />
             }
           </Route>
-
-
-          <Route path="/about">
-            <About isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
-          </Route>
           <Route path="/">
-          <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+            <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
           </Route>
         </Switch>
       </Router>

@@ -15,9 +15,9 @@ body {
     position: absolute;
     margin-left: 25vw;
     margin-top: 1vw;
-    width: 74vw;
+    width: 73vw;
     overflow: hidden;
-    height: 45vw;
+    height: 44vw;
     justify-content: center;
     border: 3px solid #007EA7;
 }
@@ -119,6 +119,9 @@ header > h1 > a {
 #nav {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
+    left: 10vw;
+    padding: 0;
 }
 
 #nav > li {
@@ -252,7 +255,56 @@ a.datalink:hover, a.datalink:active {
     box-shadow: none;
 }
 
-/* Search bar CSS ends here */
+
+/* Send button for newGrave form */
+
+#button-7 {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#button-7 a {
+  position: relative;
+  left: 0;
+  transition: all .35s ease-Out;
+}
+
+#dub-arrow {
+  width: 100%;
+  height: 100%;
+  background: #BFC0C0;
+  left: -200px;
+  position: absolute;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .35s ease-Out;
+  bottom: 0;
+}
+
+#button-7 img {
+  width: 20px;
+  height: auto;
+}
+
+#button-7:hover #dub-arrow {
+  left: 0;
+}
+
+#button-7:hover a {
+  left: 150px;
+}
+
+@media screen and (min-width:1000px) {
+  h1 {
+    font-size: 2.2em;
+  }
+  #container {
+    width: 50%;
+  }
+}
 
 /** Wobble Skew Animations **/
 

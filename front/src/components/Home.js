@@ -43,12 +43,16 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
         <div id="mainContainer">
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div id="mapContainer">
-          {/* Markkerien tiedot mapille */}
           <Map graves={graves} coordinatesToZoom={coordinatesToZoom} passNewGraveCoordinates={handleNewGraveCoordinates}/>
         </div>
-        {/* Markkerien lisäysfunktio sidebarille */}
-        <Sidebar isLoggedIn={isLoggedIn} graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom} newGraveCoordinates={newGraveCoordinates} addingNewGrave={handleNewGraveAdding}/>
-      </div>
+          <Sidebar
+            isLoggedIn={isLoggedIn}
+            graves={graves}
+            handleSetCoordinatesForZoom={handleSetCoordinatesForZoom}
+            newGraveCoordinates={newGraveCoordinates}
+            addingNewGrave={handleNewGraveAdding}
+            isLoggedIn={isLoggedIn}/>
+        </div>
     )
   }
 
