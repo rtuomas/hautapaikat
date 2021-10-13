@@ -39,8 +39,8 @@ const Sidebar = (props) => {
     }
 
     function validateForm() {
-        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 && 
-            newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0)       
+        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 &&
+            newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0)
     }
 
     function setGraveAddingTo(boolean){
@@ -175,7 +175,7 @@ const Sidebar = (props) => {
     return (
     <>
       <ul id="sidebar">
-        { addGrave() }
+        { props.isLoggedIn ? addGrave() : null }
         <div style={{display:"flex"}}>
             <FaSearch style={{ color: "white", marginRight: "1em", marginTop: "2.5em"}} id="searchIcon" />
             <div className="form__group field">

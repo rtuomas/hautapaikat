@@ -27,7 +27,7 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
   }
 
     if(gravesLoaded){
-      // already loaded 
+      // already loaded
     } else {
       services.loadGraves().then(gravesData => {
           //console.log(gravesData)
@@ -47,7 +47,7 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
           <Map graves={graves} coordinatesToZoom={coordinatesToZoom} passNewGraveCoordinates={handleNewGraveCoordinates}/>
         </div>
         {/* Markkerien lisäysfunktio sidebarille */}
-        <Sidebar graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom} newGraveCoordinates={newGraveCoordinates} addingNewGrave={handleNewGraveAdding}/>
+        <Sidebar isLoggedIn={isLoggedIn} graves={graves} handleSetCoordinatesForZoom={handleSetCoordinatesForZoom} newGraveCoordinates={newGraveCoordinates} addingNewGrave={handleNewGraveAdding}/>
       </div>
     )
   }
