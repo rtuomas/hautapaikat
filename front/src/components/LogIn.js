@@ -16,7 +16,7 @@ const LogIn = ( {isLoggedIn, setIsLoggedIn} ) => {
             services
                 .login(username, password)
                 .then(res => {
-                    console.log(res)
+                    console.log("RES", res.status)
                     if(res.status===202){
                         localStorage.setItem("myToken", JSON.stringify(res.data.accessToken))
                         localStorage.setItem("username", JSON.stringify(res.data.username))
@@ -26,6 +26,7 @@ const LogIn = ( {isLoggedIn, setIsLoggedIn} ) => {
                         setLoginNotification(res.data.message)
                     }
                 }).catch(error => {
+                    setLoginNotification("Username or password wrong, try again!")
                     console.log(error)
                 })
         } else {
