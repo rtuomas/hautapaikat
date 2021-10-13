@@ -2,7 +2,7 @@ import { MapContainer, Marker, Popup, TileLayer, MapConsumer } from 'react-leafl
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import L from 'leaflet';
+import L, { map } from 'leaflet';
 
 let moveEventAdded = false
 function formatDate (date) {
@@ -19,10 +19,9 @@ const coordinateUpdateMinInterval = 100
 
 let previousZoomCoordinates
 
-const Map = (props) => {
+let mapCenter = [65.5538179, 27.7496755]
 
-  
-  
+const Map = (props) => {
 
     let DefaultIcon = L.icon({
         iconUrl: icon,
@@ -31,11 +30,18 @@ const Map = (props) => {
     });
 
     function getCenterCoordinates(center){
+      mapCenter = [center.lat,center.lng]
       const timeNow = +new Date()
       if(timeNow - previousCoordinateUpdate > coordinateUpdateMinInterval){
         previousCoordinateUpdate = timeNow
         const newCoords = {lat:center.lat,long:center.lng}
         props.passNewGraveCoordinates(newCoords)
+      }
+    }
+
+    function drawCenterMarker(){
+      if(props.addingNewGrave){
+        return (<Marker position={mapCenter}></Marker>)
       }
     }
     
@@ -48,6 +54,10 @@ const Map = (props) => {
         />
         <MapConsumer>
         {(map) => {
+
+            mapCenter = [map.getCenter().lat,map.getCenter().lng]
+          
+          
           if(moveEventAdded){
             // already added
           } else {
@@ -63,6 +73,7 @@ const Map = (props) => {
           return null;
         }}
       </MapConsumer>
+        { drawCenterMarker() }
         {props.graves.map(marker => 
           <Marker onClick={() => console.log("test")} key={marker._id} position={[marker.location.lat, marker.location.long]}>
           <Popup>
