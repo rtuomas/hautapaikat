@@ -21,8 +21,8 @@ const Map = (props) => {
       const timeNow = +new Date()
       if(timeNow - previousCoordinateUpdate > coordinateUpdateMinInterval){
         previousCoordinateUpdate = timeNow
-        props.passNewGraveCoordinates(center)
-        //console.log(center.lat)
+        //props.passNewGraveCoordinates(center)
+        console.log(center.lat)
       }
     }
     

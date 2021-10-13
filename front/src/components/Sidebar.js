@@ -22,23 +22,6 @@ const Sidebar = (props) => {
     const [resultDetails, showResultDetails] = useState(false)
     const [idOfDetails, setId] = useState("")
 
-    /*function fillMapWith(array){
-        for(let item of array){
-            const location = item.location
-            if(location){
-                console.log('Draw market at ' + location.lat + ',' + location.long)
-            }
-        }
-    }
-
-    function fillListWith(array){
-        for(let item of array){
-            if(item.name){
-                //console.log('Add item on list with title ' + item.name)
-            }
-        }
-    }*/
-
     function sendFormData(event) {
         event.preventDefault();
         if (validateForm()) {
