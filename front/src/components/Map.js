@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L, { map } from 'leaflet';
+import { useEffect } from 'react'
 
 let moveEventAdded = false
 function formatDate (date) {
@@ -22,6 +23,10 @@ let previousZoomCoordinates
 let mapCenter = [65.5538179, 27.7496755]
 
 const Map = (props) => {
+
+  useEffect(() => {
+    moveEventAdded = false
+  }, []);
 
     let DefaultIcon = L.icon({
         iconUrl: icon,
