@@ -30,6 +30,17 @@ const newGrave = (newGrave) => {
   return request.then(response => response.data)
 }
 
+const deleteGrave = (id) => {
+  const accessTokenObj = JSON.parse(localStorage.getItem("myToken"))
+  const request = axios
+    .delete(
+      `${baseUrl}/deleteGrave`,
+        id,
+      { headers: {Authorization: 'Bearer: ' + accessTokenObj} }
+  )
+  return request.then(response => response.data)
+}
+
 const loadGraves = async () => {
   const response = await axios.get(`http://localhost:3002`)
   return response.data
@@ -46,7 +57,7 @@ const checkLogin = () => {
 }
 
 const exportedObject = {
-  newUser, login, newGrave, loadGraves, checkLogin
+  newUser, login, newGrave, loadGraves, checkLogin, deleteGrave
 }
 
 

@@ -180,6 +180,26 @@ a.datalink:hover, a.datalink:active {
   font-weight: 700;
 }
 
+#deleteGrave {
+  cursor:hover;
+  display: flex;
+  /*color: white;*/
+  color: #E71D36;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+#deleteGraveIcon {
+  margin-top: 20px;
+  margin-right: 0.5rem;
+}
+
+#deleteGrave:hover {
+  cursor: pointer;
+  color: #ad1325;
+}
+
 #singleResultDetails {
   cursor:auto;
   padding-top: 0.5rem;

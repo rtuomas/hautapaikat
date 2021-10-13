@@ -11,7 +11,6 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
@@ -146,6 +145,23 @@ app.get('/api/search', (req, res) => {
     console.log(error)
   });
 
+});
+
+app.delete('/api/deleteGrave', (req, res) => {
+  console.log("Delete grave")
+  console.log(req)
+
+  const id = req.body
+  //const id = "61654ea7c815ac7c0eede8d1"
+
+  Dead.findByIdAndDelete(id)
+    .then( () => {
+      res.send('Grave deleted')
+    })
+    .catch(err => {
+      console.log(err)
+      res.send('Something went wrong!', err)
+    })
 });
 
 app.put('/api/updateCemetery', (req, res) => {

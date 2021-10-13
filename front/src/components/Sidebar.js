@@ -1,9 +1,11 @@
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 import { FaPlusCircle } from "@react-icons/all-files/fa/FaPlusCircle";
 import { FaMinusCircle } from "@react-icons/all-files/fa/FaMinusCircle";
+import { FaTimes } from "@react-icons/all-files/fa/FaTimes";
 import { useState } from "react"
 import services from '../services/axios_services'
 import arrowImg from '../img/arrowImg.png'
+import { Renderer } from "leaflet";
 
 let newGrave = {
     firstName: "",
@@ -39,6 +41,15 @@ const Sidebar = (props) => {
                 setNewGraveNotification('Fill every field and try again')
                 console.log(newGrave)
             }
+    }
+
+    function deleteGrave(id) {
+        console.log("Delete grave: " + id)
+        services.deleteGrave(id).then(res => {
+            console.log(res)
+        }).catch(error => {
+            console.log(`Problem loading graves from database: ${error}`)
+        })
     }
 
     function validateForm() {
@@ -170,8 +181,8 @@ const Sidebar = (props) => {
         return (
             <ul id="results">
             {chooseFilteringMethod().map(item =>
-            <li key={item._id} id="singleResult" onClick={() => handleResultClick(!resultDetails, item._id, item.location)}>
-                {item.name}
+            <li key={item._id}>
+                <div id="singleResult" onClick={() => handleResultClick(!resultDetails, item._id, item.location)}>{item.name}</div>
                 {(() => {
                 if (resultDetails && idOfDetails === item._id){
                     return (
@@ -182,6 +193,10 @@ const Sidebar = (props) => {
                                 <li>Hautausmaa: { item.cemetery }</li>
                                 <li>Kategoria: { item.category ?? "-" }</li>
                             </ul>
+                            <div id="deleteGrave" onClick={() => deleteGrave(item._id)}>
+                                <FaTimes id="deleteGraveIcon"/>
+                                <p>Poista hauta</p>
+                            </div>
                         </div>
                     )
                 }
