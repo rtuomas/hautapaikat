@@ -15,7 +15,7 @@ function formatDate (date) {
 }
 
 let previousCoordinateUpdate = +new Date()
-const coordinateUpdateMinInterval = 100
+const coordinateUpdateMinInterval = 10
 
 let previousZoomCoordinates
 
@@ -55,8 +55,7 @@ const Map = (props) => {
         <MapConsumer>
         {(map) => {
 
-            mapCenter = [map.getCenter().lat,map.getCenter().lng]
-          
+          mapCenter = [map.getCenter().lat,map.getCenter().lng]
           
           if(moveEventAdded){
             // already added

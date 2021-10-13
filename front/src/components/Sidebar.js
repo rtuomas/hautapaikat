@@ -43,7 +43,7 @@ const Sidebar = (props) => {
 
     function validateForm() {
         return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 &&
-            newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0 && props.isLoggedIn)
+            newGrave.category.length > 0 && props.isLoggedIn)
     }
 
     function setGraveAddingTo(boolean){
