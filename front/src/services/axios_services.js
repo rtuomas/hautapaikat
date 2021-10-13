@@ -8,7 +8,7 @@ const newUser = (username, password, password2) => {
     password: password,
     password2: password2
   })
-  return request.then(response => response.data)
+  return request.then(response => response)
 }
 
 const login = (username, password) => {
