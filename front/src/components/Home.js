@@ -50,8 +50,7 @@ const Home = ( {isLoggedIn, setIsLoggedIn} ) => {
             graves={graves}
             handleSetCoordinatesForZoom={handleSetCoordinatesForZoom}
             newGraveCoordinates={newGraveCoordinates}
-            addingNewGrave={handleNewGraveAdding}
-            isLoggedIn={isLoggedIn}/>
+            addingNewGrave={handleNewGraveAdding}/>
         </div>
     )
   }
