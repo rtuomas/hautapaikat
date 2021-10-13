@@ -2,7 +2,7 @@ GET http://localhost:3002/
 
 ###
 
-POST http://localhost:3002/addDead
+POST http://localhost:3002/api/addDead
 Content-Type: application/json
 
 {
@@ -22,10 +22,25 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3002/newUser
+POST http://localhost:3002/api/newUser
 Content-Type: application/json
 
 {
   "username": "Testi",
   "password": "Salainen"
+}
+
+###
+
+GET http://localhost:3002/api/search?name=sauli
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3002/api/updateCemetery
+Content-Type: application/json
+
+{
+  "name": "Sauli Niinistö",
+  "newGrave": "Kellonummen hautausmaa2"
 }

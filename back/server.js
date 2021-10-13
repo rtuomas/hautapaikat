@@ -123,6 +123,48 @@ app.post('/api/checkLogin', (req, res) => {
 
 });
 
+/*
+For example:
+  /api/search?cemetery=kellonummi&name=gösta
+  /api/search?name=sauli
+*/
+app.get('/api/search', (req, res) => {
+  console.log("search")
+
+  const cemetery = req.query.cemetery
+  const name = req.query.name
+
+  let query = {}
+
+  if(cemetery) {query.cemetery={ $regex: new RegExp("^" + cemetery.toLowerCase(), "i") }}
+  if(name) {query.name={ $regex: new RegExp("^" + name.toLowerCase(), "i") }}
+
+  Dead.find( query ).then( result => {
+    res.json(result)
+  })
+  .catch(error => {
+    console.log(error)
+  });
+
+});
+
+app.put('/api/updateCemetery', (req, res) => {
+  console.log("updateCemetery")
+
+  const query = {'name': req.body.name}
+  const newCemetery =  {'cemetery': req.body.newGrave}
+
+  Dead.findOneAndUpdate(query, newCemetery)
+    .then( () => {
+      res.send('Cemetery updated!')
+    })
+    .catch(err => {
+      console.log(err)
+      res.send('Something went wrong!', err)
+    })
+
+});
+
 
 app.post('/api/newUser', (req, res) => {
   console.log("newUser")
