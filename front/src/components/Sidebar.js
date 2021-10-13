@@ -3,6 +3,7 @@ import { FaPlusCircle } from "@react-icons/all-files/fa/FaPlusCircle";
 import { FaMinusCircle } from "@react-icons/all-files/fa/FaMinusCircle";
 import { useState } from "react"
 import services from '../services/axios_services'
+import arrowImg from '../img/arrowImg.png'
 
 let newGrave = {
     firstName: "",
@@ -41,8 +42,8 @@ const Sidebar = (props) => {
     }
 
     function validateForm() {
-        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 && 
-            newGrave.category.length > 0)
+        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 &&
+            newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0 && props.isLoggedIn)
     }
 
     function setGraveAddingTo(boolean){
@@ -54,60 +55,77 @@ const Sidebar = (props) => {
         setGraveAddingTo(!isOpen)
     }
 
+    function formatDate (date) {
+        let datePart = date.match(/\d+/g),
+            year = datePart[0].substring(0),
+            month = datePart[1],
+            day = datePart[2];
+
+        return day+'.'+month+'.'+year;
+    }
+
     function addGrave() {
-        if (!isOpen) {
-            return (
-            <div style={{ color: "white", marginRight: "1em", marginTop: "2.5em", display: "flex", cursor: "pointer" }}>
-                <p onClick={() => toggleNewGraveForm()}><FaPlusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
-            </div>
-            )
+        if (props.isLoggedIn) {
+            if (!isOpen) {
+                return (
+                <div style={{ color: "white", marginRight: "1em", marginTop: "2.5em", display: "flex", cursor: "pointer" }}>
+                    <p onClick={() => toggleNewGraveForm()}><FaPlusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
+                </div>
+                )
+            } else {
+                return (
+                <>
+                    <div style={{ color: "white", marginRight: "1em", marginTop: "2.5em", display: "flex", cursor: "pointer"}}>
+                        <p onClick={() => toggleNewGraveForm() }><FaMinusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
+                    </div>
+    
+                    <div id="newGraveContainer" style={{marginBottom: "3rem"}}>
+                        <form onSubmit={(event) => sendFormData(event)}>
+                            <div id="newGraveForm">
+                                    <label htmlFor="firstName" style={{ color:"white", marginRight:"1em"}}>Etunimi</label>
+                                    <input type="input" placeholder="Etunimi" name="firstName" id='firstName' required onChange={event => newGrave.firstName = event.target.value} />
+    
+                                    <label htmlFor="lastName" style={{color:"white", marginRight:"1em"}}>Sukunimi</label>
+                                    <input type="input" placeholder="Sukunimi" name="lastName" id='lastName' required onChange={event => newGrave.lastName = event.target.value} />
+    
+                                    <label htmlFor="born" style={{color:"white", marginRight:"1em"}}>Syntynyt</label>
+                                    <input type="date" placeholder="Syntynyt" name="born" id='born' required onChange={event => newGrave.birthday = event.target.value} />
+    
+                                    <label htmlFor="died" style={{ color:"white", marginRight:"1em"}}>Kuollut</label>
+                                    <input type="date" placeholder="Kuollut" name="died" id='died' required onChange={event => newGrave.died = event.target.value} />
+    
+                                    <label htmlFor="cemetery" style={{ color:"white", marginRight:"1em"}}>Hautausmaa</label>
+                                    <input type="input" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
+
+                                    <label htmlFor="x" style={{color:"white", marginRight:"1em"}}>X-koordinaatti</label>
+                                    <input type="number" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} value={props.newGraveCoordinates.lat}/>
+
+                                    <label htmlFor="y" style={{color:"white", marginRight:"1em"}}>Y-koordinaatti</label>
+                                    <input type="number" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} value={props.newGraveCoordinates.long} />
+    
+                                <label htmlFor="category" style={{color:"white", marginRight:"1em"}}>Kategoria</label>
+                                <select name="category" id="category" onChange={event => newGrave.category = event.target.value} required>
+                                    <option value="-">Ei kategoriaa</option>
+                                    <option value="Musiikki">Muusikko</option>
+                                    <option value="Politiikka">Poliitikko</option>
+                                    <option value="Elokuvat">Elokuvat</option>
+                                    <option value="Viihde">Viihde</option>
+                                    <option value="Muu">Muu</option>
+                                </select>
+                                <div className="button" id="button-7" onClick={() => document.getElementById("newGraveButton").click()} style={{marginTop: "1rem"}}>
+                                    <div id="dub-arrow"><img src={arrowImg} alt="" /></div>
+                                    <p>Lähetä</p>
+                                </div>
+                                <input id="newGraveButton" style={{ marginTop: "1em", display:"none" }} type="submit" value="Lähetä"/>
+                            </div>
+                        </form>
+                        <p style={{color:"red"}}>{newGraveNotification}</p>
+                    </div>
+                </>
+                )
+            }
         } else {
-            return (
-            <>
-                <div style={{ color: "white", marginRight: "1em", marginTop: "2.5em", display: "flex", cursor: "pointer"}}>
-                    <p onClick={() => toggleNewGraveForm() }><FaMinusCircle style={{marginRight: "1em"}} />Lisää hautapaikka</p>
-                </div>
-
-                <div id="newGraveContainer" style={{marginBottom: "3rem"}}>
-                    <form onSubmit={(event) => sendFormData(event)}>
-                        <div id="newGraveForm">
-                                <label htmlFor="firstName" style={{ color:"white", marginRight:"1em"}}>Etunimi</label>
-                                <input type="input" placeholder="Etunimi" name="firstName" id='firstName' required onChange={event => newGrave.firstName = event.target.value} />
-
-                                <label htmlFor="lastName" style={{color:"white", marginRight:"1em"}}>Sukunimi</label>
-                                <input type="input" placeholder="Sukunimi" name="lastName" id='lastName' required onChange={event => newGrave.lastName = event.target.value} />
-
-                                <label htmlFor="born" style={{color:"white", marginRight:"1em"}}>Syntynyt</label>
-                                <input type="date" placeholder="Syntynyt" name="born" id='born' required onChange={event => newGrave.birthday = event.target.value} />
-
-                                <label htmlFor="died" style={{ color:"white", marginRight:"1em"}}>Kuollut</label>
-                                <input type="date" placeholder="Kuollut" name="died" id='died' required onChange={event => newGrave.died = event.target.value} />
-
-                                <label htmlFor="cemetery" style={{ color:"white", marginRight:"1em"}}>Hautausmaa</label>
-                                <input type="input" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
-
-                                <label htmlFor="x" style={{color:"white", marginRight:"1em"}}>X-koordinaatti</label>
-                                <input type="number" placeholder="X-koordinaatti" name="x" id='x' required onChange={event => newGrave.location.lat = event.target.value} value={props.newGraveCoordinates.lat}/>
-
-                                <label htmlFor="y" style={{color:"white", marginRight:"1em"}}>Y-koordinaatti</label>
-                                <input type="number" placeholder="Y-koordinaatti" name="y" id='y' required onChange={event => newGrave.location.long = event.target.value} value={props.newGraveCoordinates.long} />
-
-                            <label htmlFor="category" style={{color:"white", marginRight:"1em"}}>Kategoria</label>
-                            <select name="category" id="category" onChange={event => newGrave.category = event.target.value} required>
-                                <option value="-">Ei kategoriaa</option>
-                                <option value="Musiikki">Muusikko</option>
-                                <option value="Politiikka">Poliitikko</option>
-                                <option value="Elokuvat">Elokuvat</option>
-                                <option value="Viihde">Viihde</option>
-                                <option value="Muu">Muu</option>
-                            </select>
-                            <input id="newGraveButton" style={{ marginTop: "1em" }} type="submit" value="Lähetä"/>
-                        </div>
-                    </form>
-                    <p style={{color:"red"}}>{newGraveNotification}</p>
-                </div>
-            </>
-            )
+            return null;
         }
     }
 
@@ -159,8 +177,8 @@ const Sidebar = (props) => {
                     return (
                         <div id="singleResultDetails">
                             <ul>
-                                <li>Syntynyt: { item.birthday }</li>
-                                <li>Kuollut: { item.died }</li>
+                                <li>Syntynyt: { formatDate(item.birthday) }</li>
+                                <li>Kuollut: { formatDate(item.died) }</li>
                                 <li>Hautausmaa: { item.cemetery }</li>
                                 <li>Kategoria: { item.category ?? "-" }</li>
                             </ul>

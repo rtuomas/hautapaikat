@@ -5,6 +5,14 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 
 let moveEventAdded = false
+function formatDate (date) {
+  let datePart = date.match(/\d+/g),
+      year = datePart[0].substring(0),
+      month = datePart[1],
+      day = datePart[2];
+
+  return day+'.'+month+'.'+year;
+}
 
 const Map = (props) => {
 
@@ -54,8 +62,8 @@ const Map = (props) => {
           <Popup>
             <h1 style={{textAlign: "center"}}> { marker.name } </h1>
             <ul style={{listStyle: "none", padding: "3px", textAlign: "center"}}>
-                <li>Syntynyt: { marker.birthday }</li>
-                <li>Kuollut: { marker.died }</li>
+                <li>Syntynyt: { formatDate(marker.birthday) }</li>
+                <li>Kuollut: { formatDate(marker.died) }</li>
                 <li>Hautausmaa: { marker.cemetery }</li>
                 <li>Kategoria: { marker.category ?? "-" }</li>
             </ul>
