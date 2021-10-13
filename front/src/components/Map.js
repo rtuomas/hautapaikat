@@ -13,6 +13,7 @@ function formatDate (date) {
 
   return day+'.'+month+'.'+year;
 }
+
 let previousCoordinateUpdate = +new Date()
 const coordinateUpdateMinInterval = 100
 
