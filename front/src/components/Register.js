@@ -19,7 +19,6 @@ const Register = ( {isLoggedIn} ) => {
                 .newUser(username, password, password2)
                 .then(res => {
 
-                    console.log(res)
                     if(res.status===202){
                         setRegisterNotification(res.message + ', \n Redirecting to login page!')
 
