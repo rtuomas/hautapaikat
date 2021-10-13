@@ -47,6 +47,7 @@ const Sidebar = (props) => {
         console.log("Delete grave: " + id)
         services.deleteGrave(id).then(res => {
             console.log(res)
+            props.fetchGraves();
         }).catch(error => {
             console.log(`Problem loading graves from database: ${error}`)
         })
