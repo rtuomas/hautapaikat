@@ -5,6 +5,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 
 let moveEventAdded = false
+<<<<<<< HEAD
 function formatDate (date) {
   let datePart = date.match(/\d+/g),
       year = datePart[0].substring(0),
@@ -13,11 +14,17 @@ function formatDate (date) {
 
   return day+'.'+month+'.'+year;
 }
+=======
+let previousCoordinateUpdate = +new Date()
+const coordinateUpdateMinInterval = 100
+
+let previousZoomCoordinates
+>>>>>>> 916d2319454e47e8cac879266355ba3ed70f6a4c
 
 const Map = (props) => {
 
-  let previousCoordinateUpdate = +new Date()
-  const coordinateUpdateMinInterval = 100
+  
+  
 
     let DefaultIcon = L.icon({
         iconUrl: icon,
@@ -51,8 +58,9 @@ const Map = (props) => {
             })
             moveEventAdded = true
           }
-          if (props.coordinatesToZoom) {
+          if (props.coordinatesToZoom !== previousZoomCoordinates) {
             map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 10)
+            previousZoomCoordinates = props.coordinatesToZoom
           }
           return null;
         }}
