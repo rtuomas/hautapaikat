@@ -6,11 +6,25 @@ import L from 'leaflet';
 
 const Map = (props) => {
 
+  let previousCoordinateUpdate = +new Date()
+  const coordinateUpdateMinInterval = 500
+
+  //console.log(props.addingNewGrave)
+
     let DefaultIcon = L.icon({
         iconUrl: icon,
         shadowUrl: iconShadow,
         iconAnchor: [12.5, 41]
     });
+
+    function getCenterCoordinates(center){
+      const timeNow = +new Date()
+      if(timeNow - previousCoordinateUpdate > coordinateUpdateMinInterval){
+        previousCoordinateUpdate = timeNow
+        //props.passNewGraveCoordinates(center)
+        console.log(center.lat)
+      }
+    }
     
     L.Marker.prototype.options.icon = DefaultIcon;
     return (
@@ -21,8 +35,8 @@ const Map = (props) => {
         />
         <MapConsumer>
         {(map) => {
-          map.on("click", function (e) {
-            console.log(e.latlng);
+          map.on("move", function (e) {
+            getCenterCoordinates(map.getCenter())
           });
           if (props.coordinatesToZoom) {
             map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 10)
