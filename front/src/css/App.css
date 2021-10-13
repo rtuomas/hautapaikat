@@ -4,6 +4,7 @@
 /* Body */
 
 body {
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     font-family: "Roboto", "sans-serif";
@@ -167,6 +168,9 @@ a.datalink:hover, a.datalink:active {
 }
 
 #results {
+  height: 70vh;
+  width: 18vw;
+  overflow-y: scroll;
   list-style-type: none;
   padding-top: 1rem;
   padding-left: 2rem;

@@ -47,7 +47,7 @@ const Map = (props) => {
     
     L.Marker.prototype.options.icon = DefaultIcon;
     return (
-        <MapContainer style={{ width: "100%", height: "100%"}} center={[65.5538179, 27.7496755]} zoom={5} scrollWheelZoom={true}>
+        <MapContainer style={{ width: "inherit", height: "inherit"}} center={[65.5538179, 27.7496755]} zoom={5} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
