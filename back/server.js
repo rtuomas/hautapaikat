@@ -85,6 +85,8 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
 
+  //console.log(req)
+
   if (token == null) {
     // Älä poista /tuomas
     //return res.status(401).json( {message: "Please login first! (token null)"} )
@@ -147,21 +149,20 @@ app.get('/api/search', (req, res) => {
 
 });
 
-app.delete('/api/deleteGrave', (req, res) => {
+app.delete('/api/deleteGrave', authenticateToken, (req, res) => {
   console.log("Delete grave")
-  console.log(req)
+  const id = req.body.id
 
-  const id = req.body
-  //const id = "61654ea7c815ac7c0eede8d1"
-
-  Dead.findByIdAndDelete(id)
+  Dead.findByIdAndDelete( {_id:id } )
     .then( () => {
-      res.send('Grave deleted')
+      console.log('Grave deleted')
+      res.status(200).json( {message:'Grave deleted'} )
     })
     .catch(err => {
       console.log(err)
-      res.send('Something went wrong!', err)
+      res.status(500).json( {message:'Something went wrong!'} )
     })
+
 });
 
 app.put('/api/updateCemetery', (req, res) => {
