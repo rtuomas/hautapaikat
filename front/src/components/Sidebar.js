@@ -4,23 +4,24 @@ import { FaMinusCircle } from "@react-icons/all-files/fa/FaMinusCircle";
 import { useState } from "react"
 import services from '../services/axios_services'
 
+let newGrave = {
+    firstName: "",
+    lastName: "",
+    birthday: "",
+    died: "",
+    cemetery: "",
+    location: {lat: "", long: ""},
+    category: ""
+};
+
 const Sidebar = (props) => {
     const [newGraveNotification, setNewGraveNotification] = useState("");
-
-    let newGrave = {
-        firstName: "",
-        lastName: "",
-        birthday: "",
-        died: "",
-        cemetery: "",
-        location: {lat: "", long: ""},
-        category: ""
-    };
-
     const [isOpen, setOpen] = useState(false)
     const [searchContent, setSearchContent] = useState("")
     const [resultDetails, showResultDetails] = useState(false)
     const [idOfDetails, setId] = useState("")
+
+    newGrave.location = props.newGraveCoordinates
 
     function sendFormData(event) {
         event.preventDefault();
@@ -35,12 +36,13 @@ const Sidebar = (props) => {
                     })
             } else {
                 setNewGraveNotification('Fill every field and try again')
+                console.log(newGrave)
             }
     }
 
     function validateForm() {
-        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 &&
-            newGrave.location.lat.length > 0 && newGrave.location.long.length > 0 && newGrave.category.length > 0)
+        return (newGrave.firstName.length > 0 && newGrave.lastName.length > 0 && newGrave.birthday.length > 0 && newGrave.died.length > 0 && newGrave.cemetery.length > 0 && 
+            newGrave.category.length > 0)
     }
 
     function setGraveAddingTo(boolean){
