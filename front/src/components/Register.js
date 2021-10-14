@@ -25,10 +25,11 @@ const Register = ( {isLoggedIn} ) => {
                         //setRegisterNotification(res.message)
                         history.push('/login')
                     } else {
-                        setRegisterNotification(res.message)
+                        setRegisterNotification("Something went wrong. Try again!")
                     }
 
                 }).catch(error => {
+                    setRegisterNotification("Something went wrong. Try again!")
                     console.log(error)
                 })
         } else {
@@ -52,7 +53,11 @@ const Register = ( {isLoggedIn} ) => {
                 <div className="form__group field">
                     <input
                         type="input"
+<<<<<<< HEAD
                         autocomplete="off" 
+=======
+                        autocomplete="off"
+>>>>>>> develop
                         className="form__field"
                         placeholder="Käyttäjätunnus"
                         name="username"
@@ -92,7 +97,7 @@ const Register = ( {isLoggedIn} ) => {
 
                 <div className="button" id="button-2" onClick={() => document.getElementById("registerButton").click()}>
                     <div id="slide"></div>
-                    <p>Kirjaudu sisään</p>
+                    <p>Rekisteröidy</p>
                 </div>
                 <input type="submit" id="registerButton" style={{ display: "none" }} value="Luo käyttäjä" />
                 <p>{RegisterNotification}</p>

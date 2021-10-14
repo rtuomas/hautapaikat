@@ -2,8 +2,9 @@ import { MapContainer, Marker, Popup, TileLayer, MapConsumer } from 'react-leafl
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import L, { map } from 'leaflet';
+import L, { map, extend } from 'leaflet';
 import { useEffect } from 'react'
+import graveIcon from '../img/grave.svg'
 
 let moveEventAdded = false
 function formatDate (date) {
@@ -28,10 +29,12 @@ const Map = (props) => {
     moveEventAdded = false
   }, []);
 
-    let DefaultIcon = L.icon({
-        iconUrl: icon,
-        shadowUrl: iconShadow,
-        iconAnchor: [12.5, 41]
+    let DefaultIcon = new L.icon({
+        iconUrl: graveIcon,
+        iconSize: [35,58],
+        //iconUrl: icon,
+        //shadowUrl: iconShadow,
+        iconAnchor: [17.5, 40]
     });
 
     function getCenterCoordinates(center){
