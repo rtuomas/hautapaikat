@@ -18,7 +18,7 @@ Website for browsing graves of known finnish people. You can register and log in
 ## Rest API
 Rest API can be found [here](https://github.com/rtuomas/hautapaikat/blob/main/back/server.js)
 
-# POST 'api/addDead'
+### POST 'api/addDead'
 
 This call allows you to add new grave to the database. Takes the information as an object from request. Request is given in the following format (JS):
 
