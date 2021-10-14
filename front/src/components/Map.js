@@ -72,7 +72,7 @@ const Map = (props) => {
           }
           if (props.coordinatesToZoom && (props.coordinatesToZoom !== previousZoomCoordinates)) {
             if(props.coordinatesToZoom.lat){
-              map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 10)
+              map.flyTo([props.coordinatesToZoom.lat, props.coordinatesToZoom.long], 18)
               previousZoomCoordinates = props.coordinatesToZoom
             }
           }

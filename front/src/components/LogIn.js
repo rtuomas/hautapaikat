@@ -46,6 +46,7 @@ const LogIn = ( {isLoggedIn, setIsLoggedIn} ) => {
                 <div className="form__group field">
                     <input
                         type="input"
+                        autocomplete="off" 
                         className="form__field"
                         placeholder="Käyttäjätunnus"
                         name="username"
