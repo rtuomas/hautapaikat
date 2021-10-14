@@ -34,11 +34,11 @@ newGrave = {
 }
 ```
 
-# POST 'api/checkLogin'
+### POST 'api/checkLogin'
 
 Authentication method with the JSON Web Token. Takes the token as a request. Returns status 200 when successfull, 401 if not.
 
-# GET 'api/search'
+### GET 'api/search'
 
 General fetching call for the contents of the database. Can take either cemeteray's, deceased's or boths names as a request. Returns content from the database accordingly.
 For example:
@@ -48,19 +48,19 @@ For example:
 /api/search?name=sauli
 ```
 
-# DELETE 'api/deleteGrave'
+### DELETE 'api/deleteGrave'
 
 Takes the ID of the grave as a request and deletes it from the database. Returns status 200 when successfull.
 
-# PUT 'api/updateCemetary'
+### PUT 'api/updateCemetary'
 
 Takes the name of the deceased and object of the new data as a request. Updates the database accordingly.
 
-# POST 'api/newUser'
+### POST 'api/newUser'
 
 Takes new users data as a request, goes through validation and creates new account to the database with encrypted password. Sets today as a registeration date. Returns status 202 when successfull, and 400 validation fails.
 
-# POST '/api/login'
+### POST 'api/login'
 
 Takes the account username and password as a request and finds the account from database. If successfull, returns status 202 with the accesstoken. If the data doesn't match with the database, returns status 401.
 
