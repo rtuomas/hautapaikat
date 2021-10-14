@@ -1,6 +1,6 @@
 import axios from 'axios'
-//const baseUrl = '/'
-const baseUrl = 'http://localhost:3002/api'
+const baseUrl = '/api'
+//const baseUrl = 'http://localhost:3002/api'
 
 const newUser = (username, password, password2) => {
   const request = axios.post(`${baseUrl}/newUser`, {
@@ -44,7 +44,7 @@ const deleteGrave = (id) => {
 }
 
 const loadGraves = async () => {
-  const response = await axios.get(`http://localhost:3002`)
+  const response = await axios.get(`${baseUrl}/loadGraves`)
   return response.data
 }
 

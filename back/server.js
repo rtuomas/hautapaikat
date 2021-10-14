@@ -8,9 +8,6 @@ const jwt = require('jsonwebtoken');
 const app = express();
 
 
-app.use(express.json())
-app.use(cors())
-
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
@@ -41,10 +38,11 @@ const userSchema = new mongoose.Schema({
 })
 const User = mongoose.model('User', userSchema)
 
+app.use(express.json())
+app.use(cors())
+app.use(express.static('build'))
 
-
-
-app.get('/', (req, res) => {
+app.get('/api/loadGraves', (req, res) => {
 
   Dead.find().then( result => {
     //console.log(result)
