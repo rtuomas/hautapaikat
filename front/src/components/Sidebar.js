@@ -95,10 +95,10 @@ const Sidebar = (props) => {
                         <form onSubmit={(event) => sendFormData(event)}>
                             <div id="newGraveForm">
                                     <label htmlFor="firstName" style={{ color:"white", marginRight:"1em"}}>Etunimi</label>
-                                    <input type="input" placeholder="Etunimi" name="firstName" id='firstName' required onChange={event => newGrave.firstName = event.target.value} />
+                                    <input type="input" autocomplete="off" placeholder="Etunimi" name="firstName" id='firstName' required onChange={event => newGrave.firstName = event.target.value} />
     
                                     <label htmlFor="lastName" style={{color:"white", marginRight:"1em"}}>Sukunimi</label>
-                                    <input type="input" placeholder="Sukunimi" name="lastName" id='lastName' required onChange={event => newGrave.lastName = event.target.value} />
+                                    <input type="input" autocomplete="off" placeholder="Sukunimi" name="lastName" id='lastName' required onChange={event => newGrave.lastName = event.target.value} />
     
                                     <label htmlFor="born" style={{color:"white", marginRight:"1em"}}>Syntynyt</label>
                                     <input type="date" placeholder="Syntynyt" name="born" id='born' required onChange={event => newGrave.birthday = event.target.value} />
@@ -107,7 +107,7 @@ const Sidebar = (props) => {
                                     <input type="date" placeholder="Kuollut" name="died" id='died' required onChange={event => newGrave.died = event.target.value} />
     
                                     <label htmlFor="cemetery" style={{ color:"white", marginRight:"1em"}}>Hautausmaa</label>
-                                    <input type="input" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
+                                    <input type="input" autocomplete="off" placeholder="Hautausmaa" name="cemetery" id='cemetery' required onChange={event => newGrave.cemetery = event.target.value} />
 
                                     <label htmlFor="x" style={{color:"white", marginRight:"1em"}}>X-koordinaatti</label>
                                     <input type="number" placeholder="X-koordinaatti" name="x" id='x' required onSubmit={event => newGrave.location.lat = event.target.value} value={props.newGraveCoordinates.lat}/>
