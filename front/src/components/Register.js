@@ -53,11 +53,7 @@ const Register = ( {isLoggedIn} ) => {
                 <div className="form__group field">
                     <input
                         type="input"
-<<<<<<< HEAD
-                        autocomplete="off" 
-=======
                         autocomplete="off"
->>>>>>> develop
                         className="form__field"
                         placeholder="Käyttäjätunnus"
                         name="username"
